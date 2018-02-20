@@ -1,0 +1,33 @@
+image: gitlab.ipb.uni-bonn.de:4567/global/docker-images:ipb_default
+
+build_release:
+  script:
+  - export TERM=xterm
+  - export SHELL=/bin/bash
+  - apt-get update -yq
+  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release -DOPENGL_VERSION=450 .. 
+  - make
+  # finally run tests.
+  # No tests due to missing X11 context... - ctest -VV
+  stage: build
+  tags:   
+    - docker
+
+build_debug:
+  script:
+  - export TERM=xterm
+  - export SHELL=/bin/bash
+  - apt-get update -yq
+  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DOPENGL_VERSION=450 .. 
+  - make
+  # finally run tests.
+  # No tests due to missing X11 context... - ctest -VV
+  stage: build
+  tags:   
+    - docker
