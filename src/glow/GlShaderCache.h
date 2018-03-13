@@ -29,6 +29,8 @@ class GlShaderCache {
 
   /** \brief add source for given cache key value. **/
   void insertSource(const std::string& filename, const std::string& source);
+  /** \brief read and add source from a file **/
+  void insertSource(const std::string& filename);
 
  protected:
   GlShaderCache();
