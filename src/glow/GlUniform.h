@@ -73,8 +73,6 @@ class GlUniform : public GlAbstractUniform {
  public:
   friend class GlProgram;
 
-  /** \brief construct uniform with specific name and default value. **/
-  GlUniform(const std::string& name);
   /** \brief construct uniform with specific name and specific value. **/
   GlUniform(const std::string& name, const T& data);
 
@@ -101,11 +99,6 @@ class GlUniform : public GlAbstractUniform {
 };
 
 // generic definitions
-
-template <class T>
-GlUniform<T>::GlUniform(const std::string& name)
-    : GlAbstractUniform(name), data_(T()) {
-}
 
 template <class T>
 GlUniform<T>::GlUniform(const std::string& name, const T& value)
