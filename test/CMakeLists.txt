@@ -1,7 +1,8 @@
 # build the test cases
 include_directories(${GTEST_INCLUDE_DIRS})
 
-add_executable(test_opengl
+set(TEST_BINARY ${PROJECT_NAME}_test)
+add_executable(${TEST_BINARY}
   main.cpp
   texture-test.cpp
   buffer-test.cpp
@@ -11,6 +12,6 @@ add_executable(test_opengl
 )
 
 
-target_link_libraries(test_opengl ${GTEST_MAIN_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} glow glow_util)
+target_link_libraries(${TEST_BINARY} ${GTEST_MAIN_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} glow glow_util)
 
-add_test(test_opengl test_opengl)
+add_test(${TEST_BINARY} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TEST_BINARY})
