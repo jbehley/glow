@@ -162,7 +162,9 @@ std::string GlShader::preprocess(const std::string& source) {
     std::vector<std::string> tokens = split(line, " ");
 
     if (tokens.size() == 2 && tokens[0] == "#include") {
-      if (tokens.size() != 2) throw GlShaderError("Filename of included file missing in line " + line_no);
+      if (tokens.size() != 2) {
+        throw GlShaderError("Filename of included file missing in line " + std::to_string(line_no));
+      }
 
       std::string filename = trim(tokens[1], "\"");
       std::string include_source;
