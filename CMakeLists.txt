@@ -57,7 +57,7 @@ add_library(glow
   src/glow/GlShaderCache.cpp
   src/glow/GlCapabilities.cpp
   src/glow/GlTextureBuffer.cpp)
-  
+
 if(X11_FOUND)
   add_library(glow_util
     src/glow/util/GlCamera.cpp
@@ -65,28 +65,28 @@ if(X11_FOUND)
     src/glow/util/FpsCamera
     src/glow/util/RandomColorGenerator.cpp
     src/glow/util/X11OffscreenContext.cpp)
-  
+
   target_link_libraries(glow_util ${X11_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
-  
+
 else()
   add_library(glow_util
     src/glow/util/GlCamera.cpp
     src/glow/util/RoSeCamera.cpp
     src/glow/util/FpsCamera.cpp
     src/glow/util/RandomColorGenerator.cpp)
-  
+
   target_link_libraries(glow_util ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 endif()
 
 target_link_libraries(glow ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${Boost_LIBRARIES})
 
 if(NOT GTEST_FOUND)
- 
+
   IF(IS_DIRECTORY "/usr/src/gtest/")
-    MESSAGE(STATUS "Found google test sources in /usr/src/gtest/") 
-    
+    MESSAGE(STATUS "Found google test sources in /usr/src/gtest/")
+
     ADD_SUBDIRECTORY(/usr/src/gtest/ gtest)
-    
+
     # mimick the behaviour of find_package(GTest)
     SET(GTEST_FOUND TRUE)
     SET(GTEST_BOTH_LIBRARIES gtest gtest_main)
@@ -98,14 +98,20 @@ if(NOT GTEST_FOUND)
 endif()
 
 # TODO: Install options for CMake only.
-# TODO: and test without catkin.
 
+# Grep running processes for hints of gui. We only want to enable tests if they
+# can run. OpenGL tests depend on running X server and cannot be run without it.
+execute_process(COMMAND service --status-all
+                COMMAND grep -P \\+.*\(gdm3|lightdm\)
+                OUTPUT_VARIABLE XSERVER_FOUND)
+message(STATUS "Found X server related running processes: \n${XSERVER_FOUND}")
 
-if(GTEST_FOUND)
+if(GTEST_FOUND AND XSERVER_FOUND)
+  message(STATUS "Building tests")
   enable_testing()
   # TODO: add testcases.
   add_subdirectory(test)
-  
+
 
 endif()
 
