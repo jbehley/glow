@@ -16,22 +16,22 @@ class FpsCamera : public glow::GlCamera {
  public:
   FpsCamera();
   /** \brief update the view matrix and return it. **/
-  const Eigen::Matrix4f& matrix();
+  const Eigen::Matrix4f& matrix() override;
 
   /** \brief set camera to specified transformation matrix. **/
   void setMatrix(const Eigen::Matrix4f& m) override;
 
   /** \brief set location of the camera. **/
-  void setPosition(float x, float y, float z);
+  void setPosition(float x, float y, float z) override;
 
   /** \brief get current location of the camera. **/
-  Eigen::Vector4f getPosition() const;
+  Eigen::Vector4f getPosition() const override;
 
   /** \brief set camera directions such that the reference point is centered **/
-  void lookAt(float x_ref, float y_ref, float z_ref);
+  void lookAt(float x_ref, float y_ref, float z_ref) override;
   /** \brief set camera to specified position looking at given reference point.
    * **/
-  void lookAt(float x_cam, float y_cam, float z_cam, float x_ref, float y_ref, float z_ref);
+  void lookAt(float x_cam, float y_cam, float z_cam, float x_ref, float y_ref, float z_ref) override;
 
   /** \brief set yaw angle.
    *
@@ -55,35 +55,35 @@ class FpsCamera : public glow::GlCamera {
    *
    * \return true, if event was processed. false, otherwise.*
    **/
-  bool mousePressed(float x, float y, MouseButton btn, KeyboardModifier modifier);
+  bool mousePressed(float x, float y, MouseButton btn, KeyboardModifier modifier) override;
 
   /** \brief process mouse released at position (x,y) with given KeyModifier
    *
    *  \return true, if event was processed. false, otherwise.
    **/
-  bool mouseReleased(float x, float y, MouseButton btn, KeyboardModifier modifier);
+  bool mouseReleased(float x, float y, MouseButton btn, KeyboardModifier modifier) override;
 
   /** \brief process mouse moved event at position (x,y) with given KeyModifier
    *
    *  \return true, if event was processed. false, otherwise.
    **/
-  bool mouseMoved(float x, float y, MouseButton btn, KeyboardModifier modifier);
+  bool mouseMoved(float x, float y, MouseButton btn, KeyboardModifier modifier) override;
 
   /**  \brief process mouse wheel events by delta values, i.e., how much the
    * wheel position changed. **/
-  bool wheelEvent(float delta, KeyboardModifier modifier);
+  bool wheelEvent(float delta, KeyboardModifier modifier) override;
 
   /** \brief process key pressed with given KeyboardModifier
    *
    *  \return true, if event was processed. false, otherwise.*
    **/
-  bool keyPressed(KeyboardKey key, KeyboardModifier modifier);
+  bool keyPressed(KeyboardKey key, KeyboardModifier modifier) override;
 
   /** \brief process key released with given KeyboardModifier
    *
    *  \return true, if event was processed. false, otherwise.
    **/
-  bool keyReleased(KeyboardKey key, KeyboardModifier modifier);
+  bool keyReleased(KeyboardKey key, KeyboardModifier modifier) override;
 
  protected:
   struct KeyHash {
