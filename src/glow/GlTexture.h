@@ -182,6 +182,9 @@ class GlTexture : public GlObject {
   template <typename T>
   void download(PixelFormat pixelfmt, T* ptr) const;
 
+  /** \brief generate Mipmaps. **/
+  void generateMipmaps();
+
  protected:
   //    const std::shared_ptr<GLuint>& ptr() const
   //    {

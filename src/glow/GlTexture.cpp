@@ -137,7 +137,7 @@ GlTexture::GlTexture(uint32_t width, TextureFormat format) : width_(width), heig
   // allocate space.
   GLuint old_id = bindTransparently();
   allocateMemory();
-  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_WRAP_S, GL_REPEAT);
   releaseTransparently(old_id);
@@ -157,7 +157,7 @@ GlTexture::GlTexture(uint32_t width, uint32_t height, TextureFormat format)
   // allocate space.
   GLuint old_id = bindTransparently();
   allocateMemory();
-  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(target_, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -178,7 +178,7 @@ GlTexture::GlTexture(uint32_t width, uint32_t height, uint32_t depth, TextureFor
   // allocate space.
   GLuint old_id = bindTransparently();
   allocateMemory();
-  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
+  glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(target_, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(target_, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -597,6 +597,12 @@ void GlTexture::allocateMemory() {
     glTexImage3D(target_, 0, texFormat, width_, height_, depth_, 0, pixFormat, pixType, nullptr);
 
   CheckGlError();
+}
+
+void GlTexture::generateMipmaps() {
+  GLuint id = bindTransparently();
+  glGenerateMipmap(target_);
+  releaseTransparently(id);
 }
 }
 /* namespace rv */
