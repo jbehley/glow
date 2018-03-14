@@ -5,13 +5,13 @@ build_release:
   - export TERM=xterm
   - export SHELL=/bin/bash
   - apt-get update -yq
-  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev
+  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev xvfb mesa-utils
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Release -DOPENGL_VERSION=450 .. 
+  - cmake -DCMAKE_BUILD_TYPE=Release -DOPENGL_VERSION=330 -DFORCE_BUILD_TEST=On .. 
   - make
   # finally run tests.
-  # No tests due to missing X11 context... - ctest -VV
+  - xvfb-run -s "-screen 0 640x480x24" ctest -VV
   stage: build
   tags:   
     - docker
@@ -21,13 +21,15 @@ build_debug:
   - export TERM=xterm
   - export SHELL=/bin/bash
   - apt-get update -yq
-  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev
+  - apt-get install -y libeigen3-dev libboost-filesystem-dev libboost-system-dev libglew-dev xvfb mesa-utils
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=Debug -DOPENGL_VERSION=450 .. 
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DOPENGL_VERSION=330 -DFORCE_BUILD_TEST=On .. 
   - make
   # finally run tests.
-  # No tests due to missing X11 context... - ctest -VV
+  - xvfb-run -s "-screen 0 640x480x24" ctest -VV
   stage: build
   tags:   
     - docker
+
+

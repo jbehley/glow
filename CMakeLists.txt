@@ -106,7 +106,7 @@ execute_process(COMMAND service --status-all
                 OUTPUT_VARIABLE XSERVER_FOUND)
 message(STATUS "Found X server related running processes: \n${XSERVER_FOUND}")
 
-if(GTEST_FOUND AND XSERVER_FOUND)
+if(GTEST_FOUND AND (XSERVER_FOUND OR FORCE_BUILD_TEST))
   message(STATUS "Building tests")
   enable_testing()
   # TODO: add testcases.

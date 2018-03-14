@@ -9,7 +9,7 @@
 using namespace glow;
 
 int main(int argc, char** argv) {
-  X11OffscreenContext ctx;
+  X11OffscreenContext ctx(3,3);
 
   /* try it out */
   inititializeGLEW();
