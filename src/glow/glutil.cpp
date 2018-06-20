@@ -89,16 +89,27 @@ Eigen::Matrix4f glPerspective(float fov, float aspect, float znear, float zfar) 
   return M;
 }
 
-Eigen::Matrix4f initializeMatrix(float t00, float t01, float t02, float t03, float t10, float t11, float t12, float t13,
-                                 float t20, float t21, float t22, float t23, float t30, float t31, float t32,
-                                 float t33) {
+// clang-format off
+Eigen::Matrix4f initializeMatrix(float t00, float t01, float t02, float t03,
+                                 float t10, float t11, float t12, float t13,
+                                 float t20, float t21, float t22, float t23,
+                                 float t30, float t31, float t32, float t33) {
   Eigen::Matrix4f m;
   m << t00, t01, t02, t03, t10, t11, t12, t13, t20, t21, t22, t23, t30, t31, t32, t33;
   return m;
 }
 
-Eigen::Matrix4f RoSe2GL::matrix = initializeMatrix(0, -1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0, 0, 0, 1);
-Eigen::Matrix4f GL2RoSe::matrix = initializeMatrix(0, 0, -1, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1);
+Eigen::Matrix4f RoSe2GL::matrix = initializeMatrix(0, -1, 0, 0,
+                                                   0,  0, 1, 0,
+                                                  -1,  0, 0, 0,
+                                                   0,  0, 0, 1);
+
+
+Eigen::Matrix4f GL2RoSe::matrix = initializeMatrix(0, 0, -1, 0,
+                                                  -1, 0,  0, 0,
+                                                   0, 1,  0, 0,
+                                                   0, 0,  0, 1);
+// clang-format on
 
 float rgb2float(float r, float g, float b) {
   int32_t rgb = int32_t(round(r * 255.0f));

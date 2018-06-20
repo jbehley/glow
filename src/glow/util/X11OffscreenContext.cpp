@@ -1,6 +1,6 @@
 #include "X11OffscreenContext.h"
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 
 namespace glow {
 
@@ -9,8 +9,13 @@ typedef Bool (*glXMakeContextCurrentARBProc)(Display*, GLXDrawable, GLXDrawable,
 
 X11OffscreenContext::X11OffscreenContext(int32_t major_version, int32_t minor_version) {
   static int visual_attribs[] = {None};
-  int context_attribs[] = {GLX_CONTEXT_MAJOR_VERSION_ARB, major_version, GLX_CONTEXT_MINOR_VERSION_ARB, minor_version,
-                           GLX_CONTEXT_PROFILE_MASK_ARB, GLX_CONTEXT_CORE_PROFILE_BIT_ARB, None};
+  int context_attribs[] = {GLX_CONTEXT_MAJOR_VERSION_ARB,
+                           major_version,
+                           GLX_CONTEXT_MINOR_VERSION_ARB,
+                           minor_version,
+                           GLX_CONTEXT_PROFILE_MASK_ARB,
+                           GLX_CONTEXT_CORE_PROFILE_BIT_ARB,
+                           None};
   int fbcount = 0;
   GLXFBConfig* fbc = NULL;
   glXCreateContextAttribsARBProc glXCreateContextAttribsARB = 0;
@@ -54,5 +59,8 @@ X11OffscreenContext::X11OffscreenContext(int32_t major_version, int32_t minor_ve
   }
 }
 
-X11OffscreenContext::~X11OffscreenContext() {}
+X11OffscreenContext::~X11OffscreenContext() {
+  if (ctx != nullptr) glXDestroyContext(dpy, ctx);
+  if (dpy != nullptr) XCloseDisplay(dpy);
+}
 }

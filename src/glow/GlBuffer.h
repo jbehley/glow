@@ -160,6 +160,9 @@ class GlBuffer : public GlObject {
   /** \brief get data from the buffer. **/
   void get(std::vector<T>& data);
 
+  /** \brief get data in range [start, start + size] from the buffer. **/
+  void get(std::vector<T>& data, uint32_t start, uint32_t size);
+
   /** \brief reserve num_elements of T in memory. **/
   void reserve(uint32_t num_elements);
 
@@ -189,6 +192,12 @@ class GlBuffer : public GlObject {
 
   void bind() override;
   void release() override;
+
+  /** \brief copy all content to other buffer starting at given offset **/
+  void copyTo(GlBuffer<T>& other, uint32_t other_offset = 0);
+
+  /** \brief copy content from [offset, offset+size] into other buffer [other_offset, other_offset+size] **/
+  void copyTo(uint32_t offset, uint32_t size, GlBuffer<T>& other, uint32_t other_offset);
 
  protected:
   /** \brief bind vertex array object only if needed and return overwritten vertex array object. **/
@@ -297,11 +306,18 @@ void GlBuffer<T>::insert(uint32_t offset, const T& value) {
 
 template <class T>
 void GlBuffer<T>::get(std::vector<T>& data) {
+  get(data, 0, size_);
+}
+
+template <class T>
+void GlBuffer<T>::get(std::vector<T>& data, uint32_t start, uint32_t size) {
+  size = std::min(size, size_ - start);  // ensure valid output size
+
   data.clear();
-  data.resize(size_);
+  data.resize(size);
 
   GLuint old_buffer = bindTransparently();
-  glGetBufferSubData(target_, 0, dataSize_ * size_, &data[0]);
+  glGetBufferSubData(target_, start * dataSize_, size * dataSize_, &data[0]);
   releaseTransparently(old_buffer);
 }
 
@@ -380,6 +396,23 @@ void GlBuffer<T>::releaseTransparently(GLuint old_buffer) {
   if (old_buffer == id_) return;  // nothing changed.
 
   glBindBuffer(target_, old_buffer);
+}
+
+template <class T>
+void GlBuffer<T>::copyTo(GlBuffer<T>& other, uint32_t other_offset) {
+  copyTo(0, size_, other, other_offset);
+}
+
+template <class T>
+void GlBuffer<T>::copyTo(uint32_t offset, uint32_t size, GlBuffer<T>& other, uint32_t other_offset) {
+  glBindBuffer(GL_COPY_READ_BUFFER, id_);
+  glBindBuffer(GL_COPY_WRITE_BUFFER, other.id());
+
+  glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, offset * dataSize_, other_offset * dataSize_,
+                      size * dataSize_);
+
+  glBindBuffer(GL_COPY_READ_BUFFER, 0);
+  glBindBuffer(GL_COPY_WRITE_BUFFER, 0);
 }
 
 } /* namespace rv */
