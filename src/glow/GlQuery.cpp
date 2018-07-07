@@ -40,21 +40,22 @@ GlQuery::operator int32_t() {
   return params;
 }
 
+/** \brief begin indexed query for specified index.
+ *  If the specified target does not support an index by definition, this function calls
+ *  simply the index 0 version.
+ **/
 void GlQuery::begin(uint32_t index) {
   if (started_) throw GlQueryError("Query object already active.");
 
   // if VERSION < GL_4_0 => only glBeginQuery(target_, id_); is available.
-
   if (target_ == GL_TIME_ELAPSED || target_ == GL_ANY_SAMPLES_PASSED || target_ == GL_SAMPLES_PASSED) index = 0;
-  //  glBeginQueryIndexed(target_, index, id_);
+  glBeginQueryIndexed(target_, index, id_);
   index_ = index;
-  glBeginQuery(target_, id_);
   started_ = true;
 }
 
 void GlQuery::end() {
-  //  glEndQueryIndexed(target_, index_);
-  glEndQuery(target_);
+  glEndQueryIndexed(target_, index_);
   started_ = false;
 }
 
