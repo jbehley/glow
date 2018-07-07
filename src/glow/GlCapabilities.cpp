@@ -91,6 +91,7 @@ GlCapabilities::GlCapabilities() {
   initGlParameter<int>(GL_NUM_COMPRESSED_TEXTURE_FORMATS, 1);
   initGlParameter<int>(GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT, 1);
 
+
   // Transformation state.
   initGlParameter<int>(GL_MAX_CLIP_DISTANCES, 1);
   initGlParameter<float>(GL_MAX_VIEWPORT_DIMS, 2);
@@ -105,7 +106,9 @@ GlCapabilities::GlCapabilities() {
   // initGlParameter<bool>(GL_PRIMITIVE_RESTART_FOR_PATCHES_SUPPORTED, 1); ???
 
   // TODO: > OpenGL 4.0? GL_PROGRAM_BINARY_FORMATS, GL_SHADER_BINARY_FORMATS, GL_SHADER_COMPILER,
-  // ??? GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT
+  // ??? GL_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT, GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT+
+
+  initGlParameter<int>(GL_MAX_TRANSFORM_FEEDBACK_BUFFERS, 1);
 }
 
 GlCapabilities& GlCapabilities::getInstance() {

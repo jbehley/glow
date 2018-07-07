@@ -20,6 +20,7 @@ void GlTransformFeedback::bind() {
 #endif
 
   // bind buffers.
+
   for (uint32_t i = 0; i < buffers_.size(); ++i) {
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, i, *(buffers_[i].second));
   }
@@ -91,17 +92,21 @@ void GlTransformFeedback::registerVaryings(GLuint program_id) {
     }
   }
 
-  // 2. set varyings.
+  std::vector<std::string> varyings_stack;
   for (auto& p : buffers_) {
-    uint32_t n = p.first.size() + static_cast<uint32_t>(addNextBuffer);
+    for (uint32_t i = 0; i < p.first.size(); ++i) varyings_stack.push_back(p.first[i]);
 
-    const char* vars[n];
-    for (uint32_t i = 0; i < p.first.size(); ++i) vars[i] = p.first[i].c_str();
-
-    if (addNextBuffer) vars[n - 1] = nextBuffer.c_str();
-
-    glTransformFeedbackVaryings(program_id, n, vars, bufferMode);
+    if (addNextBuffer) varyings_stack.push_back(nextBuffer);
   }
+
+  // 2. set varyings.
+  const char* vars[varyings_stack.size()];
+  uint32_t count = 0;
+  for (const auto& v : varyings_stack) {
+    vars[count++] = v.c_str();
+  }
+
+  glTransformFeedbackVaryings(program_id, varyings_stack.size(), vars, bufferMode);
 }
 
 } /* namespace rv */

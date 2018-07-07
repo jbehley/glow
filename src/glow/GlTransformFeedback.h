@@ -1,10 +1,12 @@
 #ifndef INCLUDE_RV_GLTRANSFORMFEEDBACK_H_
 #define INCLUDE_RV_GLTRANSFORMFEEDBACK_H_
 
+#include <sstream>
 #include <string>
 
-#include "GlObject.h"
 #include "GlBuffer.h"
+#include "GlCapabilities.h"
+#include "GlObject.h"
 #include "GlQuery.h"
 
 namespace glow {
@@ -18,7 +20,7 @@ enum class TransformFeedbackMode { POINTS = GL_POINTS, LINES = GL_LINES, TRIANGL
  *
  *  Transform feedbacks can be used to capture transformed vertex data before the rasterization stage,
  *  just before clipping. This enables the program to record data and use this for later processing in
- *  the rendering pipline.
+ *  the rendering pipeline.
  *
  *  \see GlProgram::attach(GLTransformFeedback)
  *
@@ -79,9 +81,15 @@ class GlTransformFeedback : public GlObject {
 
 template <typename T>
 void GlTransformFeedback::attach(const std::vector<std::string>& varyings, GlBuffer<T>& buffer) {
+  uint32_t maxBuffers = GlCapabilities::getInstance().get<int32_t>(GL_MAX_TRANSFORM_FEEDBACK_BUFFERS);
+  if (buffers_.size() + 1 > maxBuffers) {
+    std::stringstream msg;
+    msg << "Only " << maxBuffers << " transform feedback buffers allowed. See also GL_MAX_TRANSFORM_FEEDBACK_BUFFERS.";
+    throw std::runtime_error(msg.str());
+  }
   buffers_.push_back(std::make_pair(varyings, buffer.ptr_));
 }
 
-} /* namespace rv */
+} /* namespace glow */
 
 #endif /* INCLUDE_RV_GLTRANSFORMFEEDBACK_H_ */
