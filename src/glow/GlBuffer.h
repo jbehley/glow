@@ -199,6 +199,9 @@ class GlBuffer : public GlObject {
   /** \brief copy content from [offset, offset+size] into other buffer [other_offset, other_offset+size] **/
   void copyTo(uint32_t offset, uint32_t size, GlBuffer<T>& other, uint32_t other_offset);
 
+  /** \brief get memory usage of buffer in bytes. **/
+  uint32_t memorySize() const { return capacity_ * dataSize_; }
+
  protected:
   /** \brief bind vertex array object only if needed and return overwritten vertex array object. **/
   GLuint bindTransparently();
