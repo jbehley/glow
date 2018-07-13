@@ -40,7 +40,7 @@ enum class PixelType {
   UNSIGNED_INT = GL_UNSIGNED_INT,
   INT = GL_INT,
   HALF_FLOAT = GL_HALF_FLOAT,
-  FLOAT = GL_FLOAT,
+  FLOAT = GL_FLOAT,                   // [0.0, 1.0]
   // TODO: add packed formats, ...
 };
 
