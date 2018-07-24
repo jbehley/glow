@@ -237,11 +237,72 @@ bool RoSeCamera::mouseMoved(float x, float y, MouseButton btn, KeyboardModifier 
 }
 
 bool RoSeCamera::wheelEvent(float delta, KeyboardModifier modifier) {
+  mutex_.lock();
+  static const float ZOOM_SENSITIVITY = 3.f;
   // move along the viewing direction specified by yaw and pitch.
+  
+    
+    float forward = ZOOM_SENSITIVITY * delta * std::cos(pitch_);    
+    float up = ZOOM_SENSITIVITY * delta * std::sin(pitch_) * (-1);
+    float s = std::sin(yaw_);
+    float c = std::cos(yaw_);
 
+
+
+    x_ -= forward * s;
+    y_ -= up;
+    z_ += forward * c * (-1);
   // TODO: implement me!
+   mutex_.unlock();
 
   return true;
+}
+
+bool RoSeCamera::keyPressed(KeyboardKey key, KeyboardModifier modifier){  
+  switch(static_cast<std::underlying_type<KeyboardKey>::type>(key)){
+    case 65: //a
+    startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+    sideVel_ = -10*y_;
+    return true;
+  case 68: //d
+    startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+    sideVel_ = 10*y_;
+    return true;
+  case 87: //w
+    startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+    forwardVel_ = 10*y_;
+    return true;
+  case 83: //s
+    startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+    forwardVel_ = -10*y_;
+    return true;
+  }
+  return false;
+}
+
+   
+bool RoSeCamera::keyReleased(KeyboardKey key, KeyboardModifier modifier){ 
+  switch(static_cast<std::underlying_type<KeyboardKey>::type>(key)){
+    case 65:
+    case 68:
+    startTime_ = std::chrono::system_clock::now();
+      
+    sideVel_ = 0;
+    if (forwardVel_==0) startdrag_ = false;
+    return true;
+    case 87:
+    case 83:
+    startTime_ = std::chrono::system_clock::now();
+
+    forwardVel_ = 0;
+    if (sideVel_==0) startdrag_ = false;
+    return true;
+  }
+  return false;
 }
 
 } /* namespace rv */
