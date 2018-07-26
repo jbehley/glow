@@ -23,8 +23,8 @@ enum class QueryTarget {
 class GlQuery : public GlObject {
  public:
   GlQuery(QueryTarget target);
-  //
-  //    /** conversion operators. **/
+
+  /** conversion operators. **/
   operator uint32_t();
   operator int32_t();
 

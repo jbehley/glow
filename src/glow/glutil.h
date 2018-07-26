@@ -54,6 +54,9 @@ Eigen::Matrix4f glRotateZ(float angle);
 /** \brief perspective projection matrix. /gluPerspective...**/
 Eigen::Matrix4f glPerspective(float fov, float aspect, float znear, float zfar);
 
+/** \brief orthographic project matrix. /gluOrthographic.. **/
+Eigen::Matrix4f glOrthographic(float left, float right, float bottom, float top, float znear, float zfar);
+
 /** \brief rotate about axis (x,y,z) by \a angle (radians) **/
 Eigen::Matrix4f glRotateAxis(float angle, float x, float y, float z);
 
