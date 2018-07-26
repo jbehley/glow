@@ -64,7 +64,7 @@ void GlQuery::end() {
 #if __GL_VERSION >= 400L
   glEndQueryIndexed(target_, index_);
 #else
-  glEndQuery(target_, id_);
+  glEndQuery(target_);
 #endif
   started_ = false;
 }
