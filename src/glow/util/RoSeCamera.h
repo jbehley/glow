@@ -90,6 +90,8 @@ class RoSeCamera : public GlCamera {
 
   /**  \brief process mouse wheel events by delta values, i.e., how much the wheel position changed. **/
   bool wheelEvent(float delta, KeyboardModifier modifier) override;
+  bool keyPressed(KeyboardKey key, KeyboardModifier modifier) override;
+  bool keyReleased(KeyboardKey key, KeyboardModifier modifier) override;
 
  protected:
   void translate(float forward, float up, float sideways);

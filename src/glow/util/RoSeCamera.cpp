@@ -237,11 +237,75 @@ bool RoSeCamera::mouseMoved(float x, float y, MouseButton btn, KeyboardModifier 
 }
 
 bool RoSeCamera::wheelEvent(float delta, KeyboardModifier modifier) {
+  mutex_.lock();
+  static const float ZOOM_SENSITIVITY = 3.f;
   // move along the viewing direction specified by yaw and pitch.
+  
+    
+    float forward = ZOOM_SENSITIVITY * delta * std::cos(pitch_);    
+    float up = ZOOM_SENSITIVITY * delta * std::sin(pitch_) * (-1);
+    float s = std::sin(yaw_);
+    float c = std::cos(yaw_);
 
+
+
+    x_ -= forward * s;
+    y_ -= up;
+    z_ += forward * c * (-1);
   // TODO: implement me!
+   mutex_.unlock();
 
   return true;
+}
+
+bool RoSeCamera::keyPressed(KeyboardKey key, KeyboardModifier modifier){  
+  float factor = (y_>50?50:(y_>1?y_:1));
+  switch(key){
+    case KeyboardKey::KeyA:
+      startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+      sideVel_ = -10*factor;
+      return true;
+    case KeyboardKey::KeyD:
+      startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+      sideVel_ = 10*factor;
+      return true;
+    case KeyboardKey::KeyW:
+      startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+      forwardVel_ = 10*factor;
+      return true;
+    case KeyboardKey::KeyS:
+      startTime_ = std::chrono::system_clock::now();
+      startdrag_ = true;
+      forwardVel_ = -10*factor;
+      return true;
+    default: 
+      return false;
+  }
+}
+
+   
+bool RoSeCamera::keyReleased(KeyboardKey key, KeyboardModifier modifier){ 
+  switch(key){
+    case KeyboardKey::KeyA:
+    case KeyboardKey::KeyD:
+      startTime_ = std::chrono::system_clock::now();
+        
+      sideVel_ = 0;
+      if (forwardVel_==0) startdrag_ = false;
+      return true;
+    case KeyboardKey::KeyW:
+    case KeyboardKey::KeyS:
+      startTime_ = std::chrono::system_clock::now();
+
+      forwardVel_ = 0;
+      if (sideVel_==0) startdrag_ = false;
+      return true;
+    default: 
+      return false;
+  }
 }
 
 } /* namespace rv */
