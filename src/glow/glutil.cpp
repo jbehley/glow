@@ -89,6 +89,24 @@ Eigen::Matrix4f glPerspective(float fov, float aspect, float znear, float zfar) 
   return M;
 }
 
+Eigen::Matrix4f glOrthographic(float left, float right, float bottom, float top, float znear, float zfar) {
+
+  // copied from https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
+
+  Eigen::Matrix4f M = Eigen::Matrix4f::Zero();
+
+  M(0, 0) = 2.0f / (right - left);
+  M(1, 1) = 2.0f / (top - bottom);
+  M(2, 2) = -2.0f / (zfar - znear);
+
+  M(0, 3) = -(right + left) / (right - left);
+  M(1, 3) = -(top + bottom) / (top - bottom);
+  M(2, 3) = -(zfar + znear) / (zfar - znear);
+  M(3, 3) = 1.0f;
+
+  return M;
+}
+
 // clang-format off
 Eigen::Matrix4f initializeMatrix(float t00, float t01, float t02, float t03,
                                  float t10, float t11, float t12, float t13,
