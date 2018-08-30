@@ -3,7 +3,8 @@
 
 namespace glow {
 
-GlTransformFeedback::GlTransformFeedback() : linked_(std::make_shared<bool>(false)) {
+GlTransformFeedback::GlTransformFeedback()
+    : bound_(std::make_shared<bool>(false)), linked_(std::make_shared<bool>(false)) {
 #if __GL_VERSION >= 400L
   glGenTransformFeedbacks(1, &id_);
   ptr_ = std::shared_ptr<GLuint>(new GLuint(id_), [](GLuint* ptr) {
@@ -14,7 +15,7 @@ GlTransformFeedback::GlTransformFeedback() : linked_(std::make_shared<bool>(fals
 }
 
 void GlTransformFeedback::bind() {
-  if (!linked_) throw GlTransformFeedbackError("Transform feedback not linked with any program!");
+  if (!*linked_) throw GlTransformFeedbackError("Transform feedback not linked with any program!");
 #if __GL_VERSION >= 400L
   glBindTransformFeedback(GL_TRANSFORM_FEEDBACK, id_);  // if OpenGl4.0+
 #endif
@@ -25,9 +26,11 @@ void GlTransformFeedback::bind() {
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, i, *(buffers_[i].second));
   }
   CheckGlError();
+  *bound_ = true;
 }
 
 void GlTransformFeedback::begin(TransformFeedbackMode mode) {
+  if (!*bound_) throw GlTransformFeedbackError("Transform feedback must be bound using bind() before calling begin().");
   countquery_.begin();
   glBeginTransformFeedback(static_cast<GLenum>(mode));
 
@@ -67,6 +70,8 @@ void GlTransformFeedback::release() {
   for (uint32_t i = 0; i < buffers_.size(); ++i) {
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, i, 0);
   }
+
+  *bound_ = false;
 }
 
 void GlTransformFeedback::registerVaryings(GLuint program_id) {
@@ -107,6 +112,7 @@ void GlTransformFeedback::registerVaryings(GLuint program_id) {
   }
 
   glTransformFeedbackVaryings(program_id, varyings_stack.size(), vars, bufferMode);
+  *linked_ = true;
 }
 
 } /* namespace rv */

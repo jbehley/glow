@@ -74,6 +74,7 @@ class GlTransformFeedback : public GlObject {
   /** \brief register transform feedback varyings for given program id. **/
   void registerVaryings(GLuint program_id);
 
+  std::shared_ptr<bool> bound_;
   std::shared_ptr<bool> linked_;
   std::vector<std::pair<std::vector<std::string>, std::shared_ptr<GLuint> > > buffers_;
   GlQuery countquery_{QueryTarget::TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN};
