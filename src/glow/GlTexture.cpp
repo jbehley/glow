@@ -366,35 +366,66 @@ bool GlTexture::save(const std::string& filename) const {
 
   std::string ext = glow::extension(filename);
   if (ext == ".ppm") {
-    std::ofstream out(filename.c_str());
-    out << "P6" << std::endl;
-    out << width_ << std::endl;
-    out << height_ << std::endl;
-    out << "255" << std::endl;
+    if (height_ == 0) {
+      std::ofstream out(filename.c_str());
+      out << "P6" << std::endl;
+      out << width_ << std::endl;
+      out << 1 << std::endl;
+      out << "255" << std::endl;
 
-    std::vector<float> colors(width_ * height_ * 3);
-    GLuint id = bindTransparently();
-    glGetTexImage(target_, 0, GL_RGB, GL_FLOAT, reinterpret_cast<GLvoid*>(&colors[0]));
-    CheckGlError();
-    releaseTransparently(id);
+      std::vector<float> colors(width_ * 3);
+      GLuint id = bindTransparently();
+      glGetTexImage(target_, 0, GL_RGB, GL_FLOAT, reinterpret_cast<GLvoid*>(&colors[0]));
+      CheckGlError();
+      releaseTransparently(id);
 
-    std::vector<char> data(width_ * height_ * 3);
+      std::vector<char> data(width_ * 3);
 
-    for (uint32_t x = 0; x < width_; ++x) {
-      for (uint32_t y = 0; y < height_; ++y) {
-        int32_t r = 255 * colors[3 * (x + (height_ - 1 - y) * width_)];
-        int32_t g = 255 * colors[3 * (x + (height_ - 1 - y) * width_) + 1];
-        int32_t b = 255 * colors[3 * (x + (height_ - 1 - y) * width_) + 2];
-        data[3 * (x + y * width_)] = (char)std::max(std::min(255, r), 0);
-        data[3 * (x + y * width_) + 1] = (char)std::max(std::min(255, g), 0);
-        data[3 * (x + y * width_) + 2] = (char)std::max(std::min(255, b), 0);
+      for (uint32_t x = 0; x < width_; ++x) {
+        int32_t r = 255 * colors[3 * x];
+        int32_t g = 255 * colors[3 * x + 1];
+        int32_t b = 255 * colors[3 * x + 2];
+        data[3 * x] = (char)std::max(std::min(255, r), 0);
+        data[3 * x + 1] = (char)std::max(std::min(255, g), 0);
+        data[3 * x + 2] = (char)std::max(std::min(255, b), 0);
       }
+
+      out.write(&data[0], height_ * 3);
+
+      out.close();
+      return true;
+
+    } else {
+      std::ofstream out(filename.c_str());
+      out << "P6" << std::endl;
+      out << width_ << std::endl;
+      out << height_ << std::endl;
+      out << "255" << std::endl;
+
+      std::vector<float> colors(width_ * height_ * 3);
+      GLuint id = bindTransparently();
+      glGetTexImage(target_, 0, GL_RGB, GL_FLOAT, reinterpret_cast<GLvoid*>(&colors[0]));
+      CheckGlError();
+      releaseTransparently(id);
+
+      std::vector<char> data(width_ * height_ * 3);
+
+      for (uint32_t x = 0; x < width_; ++x) {
+        for (uint32_t y = 0; y < height_; ++y) {
+          int32_t r = 255 * colors[3 * (x + (height_ - 1 - y) * width_)];
+          int32_t g = 255 * colors[3 * (x + (height_ - 1 - y) * width_) + 1];
+          int32_t b = 255 * colors[3 * (x + (height_ - 1 - y) * width_) + 2];
+          data[3 * (x + y * width_)] = (char)std::max(std::min(255, r), 0);
+          data[3 * (x + y * width_) + 1] = (char)std::max(std::min(255, g), 0);
+          data[3 * (x + y * width_) + 2] = (char)std::max(std::min(255, b), 0);
+        }
+      }
+
+      out.write(&data[0], width_ * height_ * 3);
+
+      out.close();
+      return true;
     }
-
-    out.write(&data[0], width_ * height_ * 3);
-
-    out.close();
-    return true;
   }
 
   return false;
