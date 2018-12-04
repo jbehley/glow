@@ -25,7 +25,7 @@ else()
   set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -O3 -DNDEBUG ${CMAKE_CXX_FLAGS}")
 endif()
 
-message("Using CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
+message(STATUS "Using CMAKE_CXX_FLAGS = ${CMAKE_CXX_FLAGS}")
 
 option(ENABLE_NVIDIA_EXT "Enable Nvidia GL capabilites." OFF)
 set(OPENGL_VERSION 330 CACHE STRING "Available OpenGL version")
