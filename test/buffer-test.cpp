@@ -30,8 +30,8 @@ TEST(BufferTest, assignTest) {
 
   ASSERT_EQ(BufferTarget::ARRAY_BUFFER, buffer.target());
   ASSERT_EQ(BufferUsage::DYNAMIC_DRAW, buffer.usage());
-  ASSERT_EQ(0, buffer.size());      // empty buffer.
-  ASSERT_EQ(0, buffer.capacity());  // really empty buffer.
+  ASSERT_EQ(static_cast<size_t>(0), buffer.size());      // empty buffer.
+  ASSERT_EQ(static_cast<size_t>(0), buffer.capacity());  // really empty buffer.
 
   buffer.assign(values);
   ASSERT_EQ(values.size(), buffer.size());  // now not empty buffer.
@@ -63,8 +63,8 @@ TEST(BufferTest, reserveTest) {
   GlBuffer<float> buffer(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
 
   buffer.reserve(1000);
-  ASSERT_EQ(1000, buffer.capacity());
-  ASSERT_EQ(0, buffer.size());
+  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
+  ASSERT_EQ(static_cast<size_t>(0), buffer.size());
 
   ASSERT_NO_THROW(CheckGlError());
 }
@@ -73,17 +73,17 @@ TEST(BufferTest, resizeTest) {
   GlBuffer<float> buffer(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
 
   buffer.reserve(1000);
-  ASSERT_EQ(1000, buffer.capacity());
-  ASSERT_EQ(0, buffer.size());
+  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
+  ASSERT_EQ(static_cast<size_t>(0), buffer.size());
 
   buffer.resize(123);
-  ASSERT_EQ(123, buffer.size());
-  ASSERT_EQ(1000, buffer.capacity());
+  ASSERT_EQ(static_cast<size_t>(123), buffer.size());
+  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
 
   GlBuffer<float> buffer2(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
   buffer2.resize(145);
-  ASSERT_EQ(145, buffer2.size());
-  ASSERT_EQ(145, buffer2.capacity());
+  ASSERT_EQ(static_cast<size_t>(145), buffer2.size());
+  ASSERT_EQ(static_cast<size_t>(145), buffer2.capacity());
 
   ASSERT_NO_THROW(CheckGlError());
 }
