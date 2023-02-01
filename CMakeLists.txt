@@ -1,23 +1,31 @@
-cmake_minimum_required(VERSION 3.2.3)
+cmake_minimum_required(VERSION 3.20)
 
 project(glow)
+
+# GoogleTest requires at least C++14
+set(CMAKE_CXX_STANDARD 14)
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/d9251171f5a42eaf993395e7ef127546af5814b0.zip
+)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
 find_package(X11)
 
-find_package(catkin)
+# find_package(catkin)
 
-if(catkin_FOUND)
-  catkin_package(
-    INCLUDE_DIRS src/
-    LIBRARIES glow glow_util
-    CFG_EXTRAS GlowShaderCompilation.cmake GenCppFile.cmake
-  )
-endif()
+# if(catkin_FOUND)
+#   catkin_package(
+#     INCLUDE_DIRS src/
+#     LIBRARIES glow glow_util
+#     CFG_EXTRAS GlowShaderCompilation.cmake GenCppFile.cmake
+#   )
+# endif()
 
-include_directories(${catkin_INCLUDE_DIRS} src/)
+# include_directories(${catkin_INCLUDE_DIRS} src/)
 
 if(CMAKE_BUILD_TYPE MATCHES Debug)
   set(CMAKE_CXX_FLAGS "-std=c++11 -g2 -DDEBUG ${CMAKE_CXX_FLAGS}")
@@ -60,11 +68,11 @@ add_library(glow
 
 if(X11_FOUND)
   add_library(glow_util
-    src/glow/util/GlCamera.cpp
-    src/glow/util/RoSeCamera.cpp
-    src/glow/util/FpsCamera
-    src/glow/util/RandomColorGenerator.cpp
-    src/glow/util/X11OffscreenContext.cpp)
+    ${PROJECT_SOURCE_DIR}/src/glow/util/GlCamera.cpp
+    ${PROJECT_SOURCE_DIR}/src/glow/util/RoSeCamera.cpp
+    ${PROJECT_SOURCE_DIR}/src/glow/util/FpsCamera.cpp
+    ${PROJECT_SOURCE_DIR}/src/glow/util/RandomColorGenerator.cpp
+    ${PROJECT_SOURCE_DIR}/src/glow/util/X11OffscreenContext.cpp)
 
   target_link_libraries(glow_util ${X11_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
@@ -80,23 +88,28 @@ endif()
 
 target_link_libraries(glow ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${Boost_LIBRARIES})
 
-if(NOT GTEST_FOUND)
+############ Testing ##################
+## old
 
-  IF(IS_DIRECTORY "/usr/src/gtest/")
-    MESSAGE(STATUS "Found google test sources in /usr/src/gtest/")
+# if(NOT GTEST_FOUND)
 
-    ADD_SUBDIRECTORY(/usr/src/gtest/ gtest)
+#   IF(IS_DIRECTORY "/usr/src/gtest/")
+#     MESSAGE(STATUS "Found google test sources in /usr/src/gtest/")
 
-    # mimick the behaviour of find_package(GTest)
-    SET(GTEST_FOUND TRUE)
-    SET(GTEST_BOTH_LIBRARIES gtest gtest_main)
-    SET(GTEST_LIBRARIES gtest)
-    SET(GTEST_MAIN_LIBRARIES gtest_main)
-  ELSE()
-    find_package(GTest)
-  ENDIF()
-endif()
+#     ADD_SUBDIRECTORY(/usr/src/gtest/ gtest)
 
+#     # mimick the behaviour of find_package(GTest)
+#     SET(GTEST_FOUND TRUE)
+#     SET(GTEST_BOTH_LIBRARIES gtest gtest_main)
+#     SET(GTEST_LIBRARIES gtest)
+#     SET(GTEST_MAIN_LIBRARIES gtest_main)
+#   ELSE()
+#     find_package(GTest)
+#   ENDIF()
+# endif()
+## redone
+enable_testing()
+add_subdirectory(test)
 # TODO: Install options for CMake only.
 
 # Grep running processes for hints of gui. We only want to enable tests if they
@@ -106,14 +119,14 @@ execute_process(COMMAND service --status-all
                 OUTPUT_VARIABLE XSERVER_FOUND)
 message(STATUS "Found X server related running processes: \n${XSERVER_FOUND}")
 
-if(GTEST_FOUND AND (XSERVER_FOUND OR FORCE_BUILD_TEST))
-  message(STATUS "Building tests")
-  enable_testing()
-  # TODO: add testcases.
-  add_subdirectory(test)
+# if(GTEST_FOUND AND (XSERVER_FOUND OR FORCE_BUILD_TEST))
+#   message(STATUS "Building tests")
+#   enable_testing()
+#   # TODO: add testcases.
+#   add_subdirectory(test)
 
 
-endif()
+# endif()
 
 
 
