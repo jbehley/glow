@@ -1,0 +1,80 @@
+{
+    /*-------------------- GLOBAL EDITOR CONFIGURATIONS -------------------------*/
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    // vscode settings
+    "editor.rulers": [
+        72,
+        88
+    ],
+    "files.exclude": {
+        "**/__pycache__/": true,
+        "**/*.egg-info/": true,
+        "**/.ipynb_checkpoints/": true,
+        "**/.mypy_cache/": true,
+        "**/.pytest_cache/": true,
+        "**/.cache/": true,
+    },
+    // "files.associations": {
+    //     "core": "cpp"
+    // },
+    "files.autoSave": "afterDelay",
+    /*----------------------------- C++ STUFF ----------------------------------*/
+    "C_Cpp.autocomplete": "default",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "C_Cpp.default.cppStandard": "c++20",
+    //clangd
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=never",
+        "--suggest-missing-includes",
+    ],
+    "cmake.sourceDirectory": "${workspaceFolder}",
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    /*----------------------------- python STUFF ----------------------------------*/
+    // "[python]": {
+    //     "editor.codeActionsOnSave": {
+    //         "source.organizeImports": true
+    //     },
+    // },
+    // "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+    // "python.autoComplete.extraPaths": [
+    //     "${workspaceFolder}/venv/lib/python3.10/site-packages"
+    // ],
+    // "python.analysis.extraPaths": [
+    //     "${workspaceFolder}/venv/lib/python3.10/site-packages"
+    // ],
+    // "python.testing.unittestEnabled": false,
+    // "python.testing.pytestEnabled": true,
+    // "python.testing.pytestArgs": [
+    //     "tests"
+    // ],
+    // // black
+    // "python.formatting.provider": "black",
+    // "python.formatting.blackPath": "${workspaceFolder}/venv/bin/black",
+    // "python.formatting.blackArgs": [
+    //     "--target-version",
+    //     "py310"
+    // ],
+    // // docstrings
+    // "autoDocstring.docstringFormat": "sphinx",
+    // "autoDocstring.generateDocstringOnEnter": true,
+    // "autoDocstring.startOnNewLine": true,
+    // // linters
+    // "python.linting.lintOnSave": true,
+    // "python.linting.flake8Enabled": true,
+    // "python.linting.flake8Args": [
+    //     "--max-line-length=88",
+    //     "--max-doc-length=80",
+    //     "--ignore=E211, E999,F401,F821,W503, E266"
+    // ],
+    // "python.linting.mypyEnabled": true,
+    // "files.associations": {
+    //     "core": "cpp"
+    // },
+}
