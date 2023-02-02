@@ -17,7 +17,6 @@ namespace glow {
  */
 class GlShaderCache {
  public:
-
   /** \brief get cache instance. **/
   static GlShaderCache& getInstance();
 
@@ -38,7 +37,6 @@ class GlShaderCache {
   GlShaderCache& operator=(const GlShaderCache&);
 
   std::string basename(const std::string& filename) const;
-
 
   std::map<std::string, std::string> sources_;
 };

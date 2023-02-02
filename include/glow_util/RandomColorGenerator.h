@@ -2,6 +2,7 @@
 #define SRC_UTIL_RANDOMCOLORGENERATOR_H_
 
 #include <glow/GlColor.h>
+
 #include <random>
 
 namespace glow {
@@ -24,5 +25,5 @@ class RandomColorGenerator {
   std::default_random_engine rng_;
   std::uniform_real_distribution<double> uniform_;
 };
-}
+}  // namespace glow
 #endif /* SRC_UTIL_RANDOMCOLORGENERATOR_H_ */

@@ -35,6 +35,6 @@ class Random {
   std::uniform_real_distribution<double> uniform_;
   std::normal_distribution<double> normal_;
 };
-}
+}  // namespace
 
 #endif /* TEST_TEST_UTILS_H_ */

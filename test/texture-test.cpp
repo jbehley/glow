@@ -1,8 +1,7 @@
-#include <gtest/gtest.h>
-
-#include <glow/GlTexture.h>
 #include <glow/GlState.h>
+#include <glow/GlTexture.h>
 #include <glow/GlTextureRectangle.h>
+#include <gtest/gtest.h>
 
 using namespace glow;
 
@@ -10,8 +9,7 @@ using namespace glow;
 // TODO: test side effects & pre and post conditions, i.e., GlState::queryAll() should be essentially the same before
 // and after copy.
 
-TEST(TextureTest, loadTexture) {
-}
+TEST(TextureTest, loadTexture) {}
 
 TEST(TextureTest, assignTest) {
   GlTexture texture(100, 50, TextureFormat::RGBA_FLOAT);
@@ -103,8 +101,7 @@ TEST(TextureTest, cloneTest) {
   }
 }
 
-TEST(TextureRectangleTest, loadTexture) {
-}
+TEST(TextureRectangleTest, loadTexture) {}
 
 TEST(TextureRectangleTest, assignTest) {
   GlTextureRectangle texture(100, 50, TextureFormat::RGBA_FLOAT);

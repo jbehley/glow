@@ -1,15 +1,13 @@
-#include <gtest/gtest.h>
-
-#include <glow/glbase.h>
-
-#include <glow/util/X11OffscreenContext.h>
-#include <glow/GlState.h>
 #include <glow/GlCapabilities.h>
+#include <glow/GlState.h>
+#include <glow/glbase.h>
+#include <glow/util/X11OffscreenContext.h>
+#include <gtest/gtest.h>
 
 using namespace glow;
 
 int main(int argc, char** argv) {
-  X11OffscreenContext ctx(3,3);
+  X11OffscreenContext ctx(3, 3);
 
   /* try it out */
   inititializeGLEW();

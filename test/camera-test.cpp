@@ -1,7 +1,6 @@
-#include <gtest/gtest.h>
-
 #include <glow/RoSeCamera.h>
 #include <glow/string_utils.h>
+#include <gtest/gtest.h>
 
 using namespace glow;
 
@@ -28,8 +27,8 @@ TEST(RoSeCameraTest, testSetMatrix) {
 
   for (uint32_t i = 0; i < 4; ++i) {
     for (uint32_t j = 0; j < 4; ++j) {
-      ASSERT_NEAR(m_gold(i, j), result(i, j), 0.00001) << "(" << i << ", " << j << ") expected: " << m_gold(i, j)
-                                                       << ", but got: " << result(i, j);
+      ASSERT_NEAR(m_gold(i, j), result(i, j), 0.00001)
+          << "(" << i << ", " << j << ") expected: " << m_gold(i, j) << ", but got: " << result(i, j);
     }
   }
 
@@ -56,8 +55,8 @@ TEST(RoSeCameraTest, testSetMatrix) {
 
   for (uint32_t i = 0; i < 4; ++i) {
     for (uint32_t j = 0; j < 4; ++j) {
-      ASSERT_NEAR(m_gold(i, j), result(i, j), EPS) << "(" << i << ", " << j << ") expected: " << m_gold(i, j)
-                                                   << ", but got: " << result(i, j);
+      ASSERT_NEAR(m_gold(i, j), result(i, j), EPS)
+          << "(" << i << ", " << j << ") expected: " << m_gold(i, j) << ", but got: " << result(i, j);
     }
   }
 
@@ -84,8 +83,8 @@ TEST(RoSeCameraTest, testSetMatrix) {
 
   for (uint32_t i = 0; i < 4; ++i) {
     for (uint32_t j = 0; j < 4; ++j) {
-      ASSERT_NEAR(m_gold(i, j), result(i, j), EPS) << "(" << i << ", " << j << ") expected: " << m_gold(i, j)
-                                                   << ", but got: " << result(i, j);
+      ASSERT_NEAR(m_gold(i, j), result(i, j), EPS)
+          << "(" << i << ", " << j << ") expected: " << m_gold(i, j) << ", but got: " << result(i, j);
     }
   }
 }

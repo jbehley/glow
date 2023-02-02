@@ -56,7 +56,7 @@ class GlTextureRectangleError : public std::runtime_error {
  public:
   GlTextureRectangleError(const std::string& msg);
 };
-}
+}  // namespace glow
 // ...
 
 #endif /* INCLUDE_RV_GLEXCEPTION_H_ */

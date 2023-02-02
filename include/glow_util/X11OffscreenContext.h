@@ -1,9 +1,9 @@
 #ifndef SRC_UTIL_X11OFFSCREENCONTEXT_H_
 #define SRC_UTIL_X11OFFSCREENCONTEXT_H_
 
+#include <GL/glx.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <GL/glx.h>
 
 namespace glow {
 
@@ -25,5 +25,5 @@ class X11OffscreenContext {
   GLXContext ctx{nullptr};
   GLXPbuffer pbuf;
 };
-}
+}  // namespace glow
 #endif /* SRC_UTIL_X11OFFSCREENCONTEXT_H_ */

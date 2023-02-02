@@ -61,10 +61,14 @@ Eigen::Matrix4f glOrthographic(float left, float right, float bottom, float top,
 Eigen::Matrix4f glRotateAxis(float angle, float x, float y, float z);
 
 /** \brief convert an angle given in degrees to radian **/
-inline float radians(float deg) { return deg * M_PI / 180.0f; }
+inline float radians(float deg) {
+  return deg * M_PI / 180.0f;
+}
 
 /** \brief convert an angle given in radian to degrees **/
-inline float degrees(float rad) { return rad * 180.0f / M_PI; }
+inline float degrees(float rad) {
+  return rad * 180.0f / M_PI;
+}
 
 // coordinate transformations:
 
@@ -88,7 +92,7 @@ struct GL2RoSe {
 float rgb2float(float r, float g, float b);
 
 std::string extension(const std::string& path, int32_t level = 1);
-}
+}  // namespace glow
 
 std::ostream& operator<<(std::ostream& stream, glow::vec2& vec);
 std::ostream& operator<<(std::ostream& stream, glow::vec3& vec);

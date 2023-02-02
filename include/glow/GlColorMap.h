@@ -12,5 +12,5 @@ class GlColorMap {
   virtual ~GlColorMap() {}
   virtual GlColor operator()(float value) = 0;
 };
-}
+}  // namespace glow
 #endif /* SRC_GLOW_GLCOLORMAP_H_ */

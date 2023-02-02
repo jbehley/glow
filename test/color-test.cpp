@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
 #include <glow/GlColor.h>
 #include <glow/glutil.h>
+#include <gtest/gtest.h>
 
 using namespace glow;
 
@@ -37,4 +37,4 @@ TEST(ColorTest, testBrightness) {
   ASSERT_NEAR(0.7 * 124.0f / 255.0f, col1.G, 0.01f);
   ASSERT_NEAR(0.7 * 138.0f / 255.0f, col1.B, 0.01f);
 }
-}
+}  // namespace

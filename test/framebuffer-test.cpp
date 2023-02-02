@@ -56,4 +56,4 @@ TEST(FramebufferTest, testStatelessness) {
   if (priorState != GlState::queryAll()) priorState.difference(GlState::queryAll());
   ASSERT_EQ(true, (priorState == GlState::queryAll()));
 }
-}
+}  // namespace
