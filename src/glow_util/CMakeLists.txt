@@ -18,10 +18,10 @@ if(X11_FOUND)
 else()
     add_library(glow_util
         STATIC
-            src/glow/util/GlCamera.cpp
-            src/glow/util/RoSeCamera.cpp
-            src/glow/util/FpsCamera.cpp
-            src/glow/util/RandomColorGenerator.cpp
+            GlCamera.cpp
+            RoSeCamera.cpp
+            FpsCamera.cpp
+            RandomColorGenerator.cpp
     )
 
     target_link_libraries(glow_util 
@@ -33,7 +33,7 @@ endif()
 
 target_include_directories(glow_util 
     PUBLIC
-        ${CMAKE_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/include
 )
 
 target_compile_options(glow_util PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")
