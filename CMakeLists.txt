@@ -34,6 +34,8 @@ target_compile_options(glow_util PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_O
 target_compile_options(glow_util PUBLIC "$<$<CONFIG:Release>:${GCC_COMPILE_RELEASE_OPTIONS}>")
 target_compile_definitions(glow_util PUBLIC "${GL_DEFINITIONS}")
 
+# modify the module path so that the custom macros can be loaded downstream. Kinda hacky
+set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake")
 # TODO: Install options for CMake only.
 
 # Grep running processes for hints of gui. We only want to enable tests if they
