@@ -1,6 +1,8 @@
-#include "GlVertexArray.h"
-#include "glexception.h"
+#include "glow/GlVertexArray.h"
+
 #include <cassert>
+
+#include "glow/glexception.h"
 
 namespace glow {
 
@@ -14,8 +16,7 @@ GlVertexArray::GlVertexArray() {
   });
 }
 
-GlVertexArray::~GlVertexArray() {
-}
+GlVertexArray::~GlVertexArray() {}
 
 void GlVertexArray::bind() {
   assert((boundVAO_ == 0 || boundVAO_ == id_) && "Other vertex array object still active?");
@@ -55,4 +56,4 @@ void GlVertexArray::releaseTransparently(GLuint old_vao) {
   glBindVertexArray(old_vao);
 }
 
-} /* namespace rv */
+}  // namespace glow

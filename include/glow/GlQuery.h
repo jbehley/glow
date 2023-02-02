@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_GLQUERY_H_
 #define INCLUDE_RV_GLQUERY_H_
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -59,6 +59,6 @@ void GlQuery::value(T& value) const {
   return T(params);
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLQUERY_H_ */

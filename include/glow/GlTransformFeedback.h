@@ -4,10 +4,10 @@
 #include <sstream>
 #include <string>
 
-#include "GlBuffer.h"
-#include "GlCapabilities.h"
-#include "GlObject.h"
-#include "GlQuery.h"
+#include "glow/GlBuffer.h"
+#include "glow/GlCapabilities.h"
+#include "glow/GlObject.h"
+#include "glow/GlQuery.h"
 
 namespace glow {
 

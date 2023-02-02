@@ -1,8 +1,8 @@
 #ifndef INCLUDE_RV_GLTEXTUREBUFFER_H_
 #define INCLUDE_RV_GLTEXTUREBUFFER_H_
 
-#include "GlBuffer.h"
-#include "GlTextureFormat.h"
+#include "glow/GlBuffer.h"
+#include "glow/GlTextureFormat.h"
 
 namespace glow {
 
@@ -16,8 +16,7 @@ namespace glow {
 class GlTextureBuffer : public GlObject {
  public:
   template <typename T>
-  GlTextureBuffer(GlBuffer<T>& buffer, TextureFormat format)
-      : format_(format) {
+  GlTextureBuffer(GlBuffer<T>& buffer, TextureFormat format) : format_(format) {
     buffer_ = buffer.ptr_;  // hold pointer to avoid deallocation before texture object is deallocated.
     glGenTextures(1, &id_);
 
@@ -66,6 +65,6 @@ class GlTextureBuffer : public GlObject {
   TextureFormat format_;
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLTEXTUREBUFFER_H_ */

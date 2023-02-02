@@ -5,11 +5,12 @@
  * some generic definitions needed by most OpenGL related functions.
  */
 
-#include <iostream>
 #include <GL/glew.h>
 
-#include "glexception.h"
 #include <cassert>
+#include <iostream>
+
+#include "glow/glexception.h"
 
 // If no version is specified, fallback to OpenGL version 3.30
 #ifndef __GL_VERSION
@@ -66,6 +67,6 @@ inline void inititializeGLEW() {
 
 #define PRINT_VALUE(CMD) std::cout << #CMD << " = " << CMD << std::endl;
 #define PRINT_CLASSVALUE(CLASS, CMD) std::cout << #CLASS << "::" << #CMD << " = " << CMD << std::endl;
-}
+}  // namespace glow
 
 #endif

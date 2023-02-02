@@ -1,4 +1,5 @@
-#include "glutil.h"
+#include "glow/glutil.h"
+
 #include <boost/filesystem.hpp>
 #include <cmath>
 
@@ -90,7 +91,6 @@ Eigen::Matrix4f glPerspective(float fov, float aspect, float znear, float zfar) 
 }
 
 Eigen::Matrix4f glOrthographic(float left, float right, float bottom, float top, float znear, float zfar) {
-
   // copied from https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glOrtho.xml
 
   Eigen::Matrix4f M = Eigen::Matrix4f::Zero();
@@ -151,7 +151,7 @@ std::string extension(const std::string& path, int32_t level) {
 
   return ext;
 }
-}
+}  // namespace glow
 
 std::ostream& operator<<(std::ostream& stream, glow::vec2& vec) {
   stream << "(" << vec.x << ", " << vec.y << ")";

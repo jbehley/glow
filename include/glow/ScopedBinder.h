@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_SCOPEDBINDER_H_
 #define INCLUDE_RV_SCOPEDBINDER_H_
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -25,8 +25,7 @@ class ScopedBinder {
 };
 
 template <class GlObject>
-ScopedBinder<GlObject>::ScopedBinder(const GlObject& object)
-    : object_(object) {
+ScopedBinder<GlObject>::ScopedBinder(const GlObject& object) : object_(object) {
   object_.bind();
 }
 
@@ -35,6 +34,6 @@ ScopedBinder<GlObject>::~ScopedBinder() {
   object_.release();
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_SCOPEDBINDER_H_ */

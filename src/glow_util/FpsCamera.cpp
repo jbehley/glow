@@ -1,6 +1,8 @@
 // Copyright 2017 Emanuele Palazzolo (emanuele.palazzolo@uni-bonn.de)
-#include "FpsCamera.h"
+#include "glow_util/FpsCamera.h"
+
 #include <glow/glutil.h>
+
 #include <iostream>
 
 namespace glow {
@@ -53,7 +55,7 @@ const Eigen::Matrix4f& FpsCamera::matrix() {
 
   // recompute the view matrix (Euler angles) Remember: Inv(AB) = Inv(B)*Inv(A)
   // Inv(translate*rotateYaw*rotatePitch) = Inv(rotatePitch)*Inv(rotateYaw)*Inv(translate)
-  
+
   view_ = glRotateX(-pitch_);
   view_ = view_ * glRotateY(-yaw_);
   view_ = view_ * glTranslate(-x_, -y_, -z_);

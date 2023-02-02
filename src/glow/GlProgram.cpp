@@ -1,8 +1,9 @@
+#include "glow/GlProgram.h"
+
 #include <cassert>
 #include <vector>
 
-#include "GlProgram.h"
-#include "GlTransformFeedback.h"
+#include "glow/GlTransformFeedback.h"
 
 namespace glow {
 
@@ -126,4 +127,4 @@ void GlProgram::releaseTransparently(GLuint oldProgram) {
   glUseProgram(oldProgram);
 }
 
-} /* namespace rv */
+}  // namespace glow

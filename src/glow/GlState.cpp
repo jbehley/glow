@@ -1,8 +1,8 @@
-#include "GlState.h"
+#include "glow/GlState.h"
 
-#include <sstream>
 #include <cassert>
 #include <cmath>
+#include <sstream>
 
 namespace glow {
 
@@ -174,8 +174,7 @@ std::string GlState::stringify_value(const std::pair<GLenum, GlState::GlStateVar
   return sstr.str();
 }
 
-GlState::GlState() {
-}
+GlState::GlState() {}
 
 template <>
 std::string GlState::get<std::string>(GLenum variable) const {
@@ -311,34 +310,26 @@ GlState GlState::queryAll() {
   //  GL_VIEWPORT);
 }
 
-GlState::GlStateVariable::GlStateVariable(bool value) : type(BOOL), valb{value}, size(1) {
-}
+GlState::GlStateVariable::GlStateVariable(bool value) : type(BOOL), valb{value}, size(1) {}
 
-GlState::GlStateVariable::GlStateVariable(int32_t i1) : type(INT), vali{i1, 0, 0, 0}, size(1) {
-}
-GlState::GlStateVariable::GlStateVariable(int32_t i1, int32_t i2) : type(INT), vali{i1, i2, 0, 0}, size(2) {
-}
+GlState::GlStateVariable::GlStateVariable(int32_t i1) : type(INT), vali{i1, 0, 0, 0}, size(1) {}
+GlState::GlStateVariable::GlStateVariable(int32_t i1, int32_t i2) : type(INT), vali{i1, i2, 0, 0}, size(2) {}
 
 GlState::GlStateVariable::GlStateVariable(int32_t i1, int32_t i2, int32_t i3)
-    : type(INT), vali{i1, i2, i3, 0}, size(3) {
-}
+    : type(INT), vali{i1, i2, i3, 0}, size(3) {}
 
 GlState::GlStateVariable::GlStateVariable(int32_t i1, int32_t i2, int32_t i3, int32_t i4)
-    : type(INT), vali{i1, i2, i3, i4}, size(4) {
-}
+    : type(INT), vali{i1, i2, i3, i4}, size(4) {}
 
-GlState::GlStateVariable::GlStateVariable(float f1) : type(FLOAT), valf{f1, 0.0f, 0.0f, 0.0f}, size(1) {
-}
+GlState::GlStateVariable::GlStateVariable(float f1) : type(FLOAT), valf{f1, 0.0f, 0.0f, 0.0f}, size(1) {}
 
-GlState::GlStateVariable::GlStateVariable(float f1, float f2) : type(FLOAT), valf{f1, f2, 0.0f, 0.0f}, size(2) {
-}
+GlState::GlStateVariable::GlStateVariable(float f1, float f2) : type(FLOAT), valf{f1, f2, 0.0f, 0.0f}, size(2) {}
 
-GlState::GlStateVariable::GlStateVariable(float f1, float f2, float f3) : type(FLOAT), valf{f1, f2, f3, 0.0f}, size(3) {
-}
+GlState::GlStateVariable::GlStateVariable(float f1, float f2, float f3)
+    : type(FLOAT), valf{f1, f2, f3, 0.0f}, size(3) {}
 
 GlState::GlStateVariable::GlStateVariable(float f1, float f2, float f3, float f4)
-    : type(FLOAT), valf{f1, f2, f3, f4}, size(4) {
-}
+    : type(FLOAT), valf{f1, f2, f3, f4}, size(4) {}
 
 bool GlState::GlStateVariable::operator==(const GlStateVariable& other) const {
   if (type != other.type) return false;
@@ -414,5 +405,5 @@ bool GlState::operator!=(const GlState& other) const {
 //
 //  while()
 //}
-}
+}  // namespace glow
 /* namespace rv */

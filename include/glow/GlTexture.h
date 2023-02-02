@@ -3,9 +3,9 @@
 
 #include <vector>
 
-#include "GlObject.h"
-#include "GlPixelFormat.h"
-#include "GlTextureFormat.h"
+#include "glow/GlObject.h"
+#include "glow/GlPixelFormat.h"
+#include "glow/GlTextureFormat.h"
 
 namespace glow {
 
@@ -224,6 +224,6 @@ void GlTexture::assign(PixelFormat pixelfmt, PixelType pixeltype, T* data) {
   releaseTransparently(old_id);
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* SRC_OPENGL_GLTEXTURE_H_ */

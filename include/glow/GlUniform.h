@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_GLUNIFORM_H_
 #define INCLUDE_RV_GLUNIFORM_H_
 
-#include "glbase.h"
+#include "glow/glbase.h"
 
 namespace glow {
 
@@ -101,9 +101,7 @@ class GlUniform : public GlAbstractUniform {
 // generic definitions
 
 template <class T>
-GlUniform<T>::GlUniform(const std::string& name, const T& value)
-    : GlAbstractUniform(name), data_(value) {
-}
+GlUniform<T>::GlUniform(const std::string& name, const T& value) : GlAbstractUniform(name), data_(value) {}
 
 template <class T>
 GlUniform<T>& GlUniform<T>::operator=(const T& rhs) {
@@ -127,6 +125,6 @@ const T& GlUniform<T>::value() const {
   return data_;
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLUNIFORM_H_ */

@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -418,6 +418,6 @@ void GlBuffer<T>::copyTo(uint32_t offset, uint32_t size, GlBuffer<T>& other, uin
   glBindBuffer(GL_COPY_WRITE_BUFFER, 0);
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLBUFFER_H_ */

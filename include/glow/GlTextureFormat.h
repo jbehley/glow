@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_GLTEXTUREFORMAT_H_
 #define INCLUDE_RV_GLTEXTUREFORMAT_H_
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -42,6 +42,6 @@ enum class TextureFormat {
   // TODO: INTENSITY = GL_R, // GRAY => GL_R and swizzle mask (R, R, R, 1.0)
 
 };
-}
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLTEXTUREFORMAT_H_ */

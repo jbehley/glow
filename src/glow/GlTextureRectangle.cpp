@@ -1,18 +1,19 @@
+#include "glow/GlTextureRectangle.h"
+
 #include <stdint.h>
+
+#include <boost/filesystem.hpp>
 #include <cassert>
 #include <fstream>
 #include <vector>
 
-#include "GlFramebuffer.h"
-#include "GlProgram.h"
-#include "GlSampler.h"
-#include "GlState.h"
-#include "GlTexture.h"
-#include "GlTextureRectangle.h"
-#include "GlVertexArray.h"
-#include "glutil.h"
-
-#include <boost/filesystem.hpp>
+#include "glow/GlFramebuffer.h"
+#include "glow/GlProgram.h"
+#include "glow/GlSampler.h"
+#include "glow/GlState.h"
+#include "glow/GlTexture.h"
+#include "glow/GlVertexArray.h"
+#include "glow/glutil.h"
 
 namespace glow {
 
@@ -591,4 +592,4 @@ void GlTextureRectangle::allocateMemory() {
   CheckGlError();
 }
 
-} /* namespace rv */
+}  // namespace glow

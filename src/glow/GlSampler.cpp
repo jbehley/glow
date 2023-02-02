@@ -1,4 +1,4 @@
-#include "GlSampler.h"
+#include "glow/GlSampler.h"
 
 namespace glow {
 
@@ -20,11 +20,9 @@ void GlSampler::release(uint32_t textureUnitId) {
   glBindSampler(static_cast<GLuint>(textureUnitId), 0);
 }
 
-void GlSampler::bind() {
-}
+void GlSampler::bind() {}
 
-void GlSampler::release() {
-}
+void GlSampler::release() {}
 
 void GlSampler::setMinifyingOperation(TexMinOp minifyingOperation) {
   glSamplerParameteri(id_, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(minifyingOperation));
@@ -49,4 +47,4 @@ void GlSampler::setWrapOperation(TexWrapOp wrap_s, TexWrapOp wrap_t, TexWrapOp w
   glSamplerParameteri(id_, GL_TEXTURE_WRAP_R, static_cast<GLenum>(wrap_r));
 }
 
-} /* namespace rv */
+}  // namespace glow

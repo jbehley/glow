@@ -30,3 +30,8 @@ else()
             ${GLEW_LIBRARIES}
 )
 endif()
+
+target_include_directories(glow_util 
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/include
+)

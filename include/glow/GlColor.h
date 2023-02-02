@@ -1,9 +1,11 @@
 #ifndef GLCOLOR_H_
 #define GLCOLOR_H_
 
-#include <cassert>
 #include <stdint.h>
-#include "glutil.h"
+
+#include <cassert>
+
+#include "glow/glutil.h"
 
 namespace glow {
 
@@ -79,5 +81,5 @@ class GlColor {
   void toHSV(float& h, float& s, float& v, float& a);
   void setHSV(float h, float s, float v, float a);
 };
-}
+}  // namespace glow
 #endif /* GlColor_H */

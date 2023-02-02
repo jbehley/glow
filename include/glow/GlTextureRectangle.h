@@ -2,9 +2,10 @@
 #define INCLUDE_RV_GLTEXTURERECTANGLE_H_
 
 #include <vector>
-#include "GlObject.h"
-#include "GlPixelFormat.h"
-#include "GlTextureFormat.h"
+
+#include "glow/GlObject.h"
+#include "glow/GlPixelFormat.h"
+#include "glow/GlTextureFormat.h"
 
 namespace glow {
 
@@ -178,7 +179,7 @@ void GlTextureRectangle::assign(PixelFormat pixelfmt, PixelType pixeltype, T* da
 
   releaseTransparently(old_id);
 }
-}
+}  // namespace glow
 /* namespace rv */
 
 #endif /* INCLUDE_RV_GLTEXTURERECTANGLE_H_ */

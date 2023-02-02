@@ -1,10 +1,10 @@
 // Copyright 2017 Emanuele Palazzolo (emanuele.palazzolo@uni-bonn.de)
 #pragma once
-#include "GlCamera.h"
-
 #include <chrono>
 #include <mutex>
 #include <unordered_map>
+
+#include "glow_util/GlCamera.h"
 
 namespace glow {
 

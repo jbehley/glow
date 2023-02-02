@@ -1,10 +1,11 @@
 #ifndef GLOW_GLSHADER_H_
 #define GLOW_GLSHADER_H_
 
-#include "GlObject.h"
-#include <string>
 #include <memory>
+#include <string>
 #include <vector>
+
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -85,6 +86,6 @@ class GlShader : public GlObject {
   std::vector<Attribute> inAttribs_;
   std::vector<Attribute> outAttribs_;
 };
-}
+}  // namespace glow
 
 #endif /* INCLUDE_GLOW_GLSHADER_H_ */

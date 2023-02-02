@@ -1,9 +1,9 @@
 #ifndef SRC_OPENGL_GLCAMERA_H_
 #define SRC_OPENGL_GLCAMERA_H_
 
-#include "enum_utils.h"
-
 #include <eigen3/Eigen/Dense>
+
+#include "glow_util/enum_utils.h"
 
 namespace glow {
 
@@ -36,14 +36,64 @@ class GlCamera {
 
   enum class KeyboardModifier { None = 0, CtrlDown = 1, AltDown = 2, ShiftDown = 4 };
 
-  enum class KeyboardKey { KeyA = 0, KeyB = 1, KeyC = 2, KeyD = 3, KeyE = 4, KeyF = 5, KeyG = 6, KeyH = 7, KeyI = 8,
-                           KeyJ = 9, KeyK = 10, KeyL = 11, KeyM = 12, KeyN = 13, KeyO = 14, KeyP = 15, KeyQ = 16,
-                           KeyR = 17, KeyS = 18, KeyT = 19, KeyU = 20, KeyV = 21, KeyW = 22, KeyX = 23, KeyY = 24,
-                           KeyZ = 25, Key1 = 26, Key2 = 27, Key3 = 28, Key4 = 29, Key5 = 30, Key6 = 31, Key7 = 32,
-                           Key8 = 33, Key9 = 34, Key0 = 35, KeyF1 = 36, KeyF2 = 37, KeyF3 = 38, KeyF4 = 39, KeyF5 = 40,
-                           KeyF6 = 41, KeyF7 = 42, KeyF8 = 43, KeyF9 = 44, KeyF10 = 45, KeyF11 = 46, KeyF12 = 47,
-                           KeyEsc = 48, KeyEnter = 49, KeyUpArrow = 50, KeyDownArrow = 51, KeyLeftArrow = 52,
-                           KeyRightArrow = 53, KeySpace = 54, KeyNotSupported = -1 };
+  enum class KeyboardKey {
+    KeyA = 0,
+    KeyB = 1,
+    KeyC = 2,
+    KeyD = 3,
+    KeyE = 4,
+    KeyF = 5,
+    KeyG = 6,
+    KeyH = 7,
+    KeyI = 8,
+    KeyJ = 9,
+    KeyK = 10,
+    KeyL = 11,
+    KeyM = 12,
+    KeyN = 13,
+    KeyO = 14,
+    KeyP = 15,
+    KeyQ = 16,
+    KeyR = 17,
+    KeyS = 18,
+    KeyT = 19,
+    KeyU = 20,
+    KeyV = 21,
+    KeyW = 22,
+    KeyX = 23,
+    KeyY = 24,
+    KeyZ = 25,
+    Key1 = 26,
+    Key2 = 27,
+    Key3 = 28,
+    Key4 = 29,
+    Key5 = 30,
+    Key6 = 31,
+    Key7 = 32,
+    Key8 = 33,
+    Key9 = 34,
+    Key0 = 35,
+    KeyF1 = 36,
+    KeyF2 = 37,
+    KeyF3 = 38,
+    KeyF4 = 39,
+    KeyF5 = 40,
+    KeyF6 = 41,
+    KeyF7 = 42,
+    KeyF8 = 43,
+    KeyF9 = 44,
+    KeyF10 = 45,
+    KeyF11 = 46,
+    KeyF12 = 47,
+    KeyEsc = 48,
+    KeyEnter = 49,
+    KeyUpArrow = 50,
+    KeyDownArrow = 51,
+    KeyLeftArrow = 52,
+    KeyRightArrow = 53,
+    KeySpace = 54,
+    KeyNotSupported = -1
+  };
   virtual ~GlCamera();
 
   /** \brief return the current view matrix. **/

@@ -1,6 +1,7 @@
-#include "GlUniform.h"
-#include "glexception.h"
-#include "glutil.h"
+#include "glow/GlUniform.h"
+
+#include "glow/glexception.h"
+#include "glow/glutil.h"
 
 namespace glow {
 
@@ -79,4 +80,4 @@ void GlUniform<float>::bind(GLuint program_id) const {
   //  assert(loc >= 0 && "Warning: Uniform unknown or unused in program.");
   glUniform1f(loc, static_cast<GLfloat>(data_));
 }
-}
+}  // namespace glow

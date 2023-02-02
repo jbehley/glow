@@ -1,5 +1,6 @@
-#include "GlTransformFeedback.h"
-#include "glexception.h"
+#include "glow/GlTransformFeedback.h"
+
+#include "glow/glexception.h"
 
 namespace glow {
 
@@ -115,4 +116,4 @@ void GlTransformFeedback::registerVaryings(GLuint program_id) {
   *linked_ = true;
 }
 
-} /* namespace rv */
+}  // namespace glow

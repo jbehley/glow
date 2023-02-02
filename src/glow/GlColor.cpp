@@ -1,7 +1,8 @@
+#include "glow/GlColor.h"
+
 #include <cmath>
 
-#include "GlColor.h"
-#include "GlUniform.h"
+#include "glow/GlUniform.h"
 
 namespace glow {
 
@@ -117,4 +118,4 @@ void GlColor::darker(float factor) {
   G *= v;
   B *= v;
 }
-}
+}  // namespace glow

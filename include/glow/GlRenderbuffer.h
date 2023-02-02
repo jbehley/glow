@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_GLRENDERBUFFER_H_
 #define INCLUDE_RV_GLRENDERBUFFER_H_
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 
@@ -46,6 +46,6 @@ class GlRenderbuffer : public GlObject {
   uint32_t width_, height_;
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLRENDERBUFFER_H_ */

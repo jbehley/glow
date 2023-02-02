@@ -1,9 +1,10 @@
+#include <glow/GlBuffer.h>
 #include <gtest/gtest.h>
 
-#include <glow/GlBuffer.h>
 #include <eigen3/Eigen/Dense>
 #include <random>
-#include "test_utils.h"
+
+#include "glow/test_utils.h"
 
 using namespace glow;
 
@@ -163,13 +164,13 @@ TEST(BufferTest, eigenTest) {
   Eigen::Matrix4f t2 = -1.0f * t1;
   orig_mats.push_back(t2);
 
-//  std::cout << "sizeof(Eigen::Matrix4f) = " << sizeof(Eigen::Matrix4f) << ", "
-//            << sizeof(Eigen::Matrix4f) / sizeof(float) << std::endl;
+  //  std::cout << "sizeof(Eigen::Matrix4f) = " << sizeof(Eigen::Matrix4f) << ", "
+  //            << sizeof(Eigen::Matrix4f) / sizeof(float) << std::endl;
 
   //  for (uint32_t i = 0; i < 16; ++i) {
   //    std::cout << ((float*)&(orig_mats[0]) + i) << ",";
   //  }
-//  std::cout << std::endl;
+  //  std::cout << std::endl;
 
   mats.assign(orig_mats);
   std::vector<Eigen::Matrix4f> buffered_mats;
@@ -178,7 +179,7 @@ TEST(BufferTest, eigenTest) {
   ASSERT_EQ(orig_mats.size(), buffered_mats.size());
 
   for (uint32_t k = 0; k < buffered_mats.size(); ++k) {
-//    std::cout << buffered_mats[k] << std::endl;
+    //    std::cout << buffered_mats[k] << std::endl;
     const Eigen::Matrix4f& A = buffered_mats[k];
     const Eigen::Matrix4f& B = orig_mats[k];
     for (uint32_t i = 0; i < 4; ++i) {
@@ -188,4 +189,4 @@ TEST(BufferTest, eigenTest) {
     }
   }
 }
-}
+}  // namespace

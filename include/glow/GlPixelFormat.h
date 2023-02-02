@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RV_GLPIXELFORMAT_H_
 #define INCLUDE_RV_GLPIXELFORMAT_H_
 
-#include "GlObject.h"
+#include "glow/GlObject.h"
 
 /** \brief pixel format and pixel type definitions.
  *
@@ -40,10 +40,10 @@ enum class PixelType {
   UNSIGNED_INT = GL_UNSIGNED_INT,
   INT = GL_INT,
   HALF_FLOAT = GL_HALF_FLOAT,
-  FLOAT = GL_FLOAT,                   // [0.0, 1.0]
+  FLOAT = GL_FLOAT,  // [0.0, 1.0]
   // TODO: add packed formats, ...
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif

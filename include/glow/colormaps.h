@@ -1,7 +1,7 @@
 #ifndef SRC_GLOW_COLORMAPS_H_
 #define SRC_GLOW_COLORMAPS_H_
 
-#include "GlColorMap.h"
+#include "glow/GlColorMap.h"
 
 namespace glow {
 
@@ -27,6 +27,6 @@ class ViridisColorMap : public GlColorMap {
   const vec4 gviridis{-0.17293242, -0.16906214, 1.24131122, 0.01871256};
   const vec4 bviridis{0.17848859, -1.72405244, 1.23042564, 0.34479632};
 };
-}
+}  // namespace glow
 
 #endif /* SRC_GLOW_COLORMAPS_H_ */

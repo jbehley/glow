@@ -1,8 +1,9 @@
 #ifndef SRC_OPENGL_GLOBJECT_H_
 #define SRC_OPENGL_GLOBJECT_H_
 
-#include "glbase.h"
 #include <memory>
+
+#include "glow/glbase.h"
 
 namespace glow {
 
@@ -39,6 +40,6 @@ class GlObject {
   std::shared_ptr<GLuint> ptr_;
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* SRC_OPENGL_GLOBJECT_H_ */

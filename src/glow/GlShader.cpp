@@ -1,11 +1,11 @@
-#include "GlShader.h"
+#include "glow/GlShader.h"
 
 #include <boost/tokenizer.hpp>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
-#include "GlShaderCache.h"
+#include "glow/GlShaderCache.h"
 
 namespace glow {
 
@@ -216,4 +216,4 @@ std::string GlShader::preprocess(const std::string& source) {
   if (out.str().size() == 0) std::cerr << "Warning: empty shader source." << std::endl;
   return out.str();
 }
-}
+}  // namespace glow

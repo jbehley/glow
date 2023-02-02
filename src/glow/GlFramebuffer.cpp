@@ -5,10 +5,11 @@
  *      Author: behley
  */
 
-#include "GlFramebuffer.h"
-#include "glexception.h"
+#include "glow/GlFramebuffer.h"
 
 #include <sstream>
+
+#include "glow/glexception.h"
 
 namespace glow {
 
@@ -172,4 +173,4 @@ void GlFramebuffer::resize(uint32_t width, uint32_t height) {
   height_ = height;
 }
 
-} /* namespace rv */
+}  // namespace glow

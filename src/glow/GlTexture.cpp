@@ -1,19 +1,18 @@
-#include "GlTexture.h"
+#include "glow/GlTexture.h"
 
 #include <stdint.h>
-#include <cassert>
-#include <vector>
-
-#include "GlFramebuffer.h"
-#include "GlProgram.h"
-#include "GlSampler.h"
-#include "GlState.h"
-#include "GlVertexArray.h"
-#include "glutil.h"
-
-#include <fstream>
 
 #include <boost/filesystem.hpp>
+#include <cassert>
+#include <fstream>
+#include <vector>
+
+#include "glow/GlFramebuffer.h"
+#include "glow/GlProgram.h"
+#include "glow/GlSampler.h"
+#include "glow/GlState.h"
+#include "glow/GlVertexArray.h"
+#include "glow/glutil.h"
 
 namespace glow {
 
@@ -635,5 +634,5 @@ void GlTexture::generateMipmaps() {
   glGenerateMipmap(target_);
   releaseTransparently(id);
 }
-}
+}  // namespace glow
 /* namespace rv */

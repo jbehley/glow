@@ -1,10 +1,11 @@
 #ifndef INCLUDE_RV_GLSTATE_H_
 #define INCLUDE_RV_GLSTATE_H_
 
-#include "glbase.h"
 #include <cstdarg>
-#include <ostream>
 #include <map>
+#include <ostream>
+
+#include "glow/glbase.h"
 
 namespace glow {
 
@@ -106,7 +107,7 @@ T GlState::get(GLenum variable) const {
   // should never reach this...
   throw std::runtime_error("Unkown state variable type.");
 }
-}
+}  // namespace glow
 /* namespace rv */
 
 #endif /* INCLUDE_RV_GLSTATE_H_ */

@@ -1,8 +1,8 @@
 #ifndef INCLUDE_RV_GLSAMPLER_H_
 #define INCLUDE_RV_GLSAMPLER_H_
 
-#include "GlObject.h"
-#include "GlTexture.h"
+#include "glow/GlObject.h"
+#include "glow/GlTexture.h"
 
 namespace glow {
 
@@ -46,7 +46,7 @@ class GlSampler : public GlObject {
 
   uint32_t boundUnit_{0};
 };
-}
+}  // namespace glow
 /* namespace rv */
 
 #endif /* INCLUDE_RV_GLSAMPLER_H_ */

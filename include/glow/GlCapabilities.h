@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "GlState.h"
+#include "glow/GlState.h"
 
 namespace glow {
 
@@ -62,6 +62,6 @@ T GlCapabilities::get(GLenum variable) const {
   throw std::runtime_error("Unkown state variable type.");
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLCAPABILITIES_H_ */

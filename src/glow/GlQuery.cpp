@@ -1,5 +1,6 @@
-#include "GlQuery.h"
-#include "glexception.h"
+#include "glow/GlQuery.h"
+
+#include "glow/glexception.h"
 
 namespace glow {
 
@@ -87,4 +88,4 @@ void GlQuery::release() {
   // noop.
 }
 
-} /* namespace rv */
+}  // namespace glow

@@ -8,10 +8,10 @@
 #ifndef INCLUDE_RV_ROSECAMERA_H_
 #define INCLUDE_RV_ROSECAMERA_H_
 
-#include "GlCamera.h"
-
 #include <chrono>
 #include <mutex>
+
+#include "glow_util/GlCamera.h"
 
 namespace glow {
 
@@ -114,6 +114,6 @@ class RoSeCamera : public GlCamera {
   std::mutex mutex_;
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_ROSECAMERA_H_ */

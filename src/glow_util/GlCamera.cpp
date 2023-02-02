@@ -1,13 +1,12 @@
-#include "GlCamera.h"
+#include "glow_util/GlCamera.h"
+
 #include "glow/glutil.h"
 
 namespace glow {
 
-GlCamera::GlCamera() {
-}
+GlCamera::GlCamera() {}
 
-GlCamera::~GlCamera() {
-}
+GlCamera::~GlCamera() {}
 
 const Eigen::Matrix4f& GlCamera::matrix() {
   return view_;

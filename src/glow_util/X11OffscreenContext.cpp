@@ -1,4 +1,5 @@
-#include "X11OffscreenContext.h"
+#include "glow_util/X11OffscreenContext.h"
+
 #include <iostream>
 #include <stdexcept>
 
@@ -63,4 +64,4 @@ X11OffscreenContext::~X11OffscreenContext() {
   if (ctx != nullptr) glXDestroyContext(dpy, ctx);
   if (dpy != nullptr) XCloseDisplay(dpy);
 }
-}
+}  // namespace glow

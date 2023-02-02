@@ -1,4 +1,4 @@
-#include "GlRenderbuffer.h"
+#include "glow/GlRenderbuffer.h"
 
 namespace glow {
 
@@ -34,4 +34,4 @@ uint32_t GlRenderbuffer::height() const {
   return height_;
 }
 
-} /* namespace rv */
+}  // namespace glow

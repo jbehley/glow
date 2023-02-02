@@ -2,9 +2,10 @@
 #define INCLUDE_RV_GLFRAMEBUFFER_H_
 
 #include <map>
-#include "GlTexture.h"
-#include "GlTextureRectangle.h"
-#include "GlRenderbuffer.h"
+
+#include "glow/GlRenderbuffer.h"
+#include "glow/GlTexture.h"
+#include "glow/GlTextureRectangle.h"
 
 namespace glow {
 
@@ -105,6 +106,6 @@ class GlFramebuffer : public GlObject {
   std::map<FramebufferAttachment, std::shared_ptr<GLuint> > attachments_;
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLFRAMEBUFFER_H_ */

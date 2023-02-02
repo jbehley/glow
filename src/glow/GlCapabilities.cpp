@@ -1,4 +1,4 @@
-#include "GlCapabilities.h"
+#include "glow/GlCapabilities.h"
 
 #include <sstream>
 
@@ -90,7 +90,6 @@ GlCapabilities::GlCapabilities() {
   initGlParameter<int>(GL_MAX_TEXTURE_SIZE, 1);
   initGlParameter<int>(GL_NUM_COMPRESSED_TEXTURE_FORMATS, 1);
   initGlParameter<int>(GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT, 1);
-
 
   // Transformation state.
   initGlParameter<int>(GL_MAX_CLIP_DISTANCES, 1);
@@ -198,4 +197,4 @@ std::string GlCapabilities::stringify_value(const std::pair<GLenum, GlState::GlS
   return sstr.str();
 }
 
-} /* namespace rv */
+}  // namespace glow

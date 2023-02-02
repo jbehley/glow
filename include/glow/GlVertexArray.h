@@ -1,10 +1,11 @@
 #ifndef INCLUDE_RV_GLVERTEXARRAY_H_
 #define INCLUDE_RV_GLVERTEXARRAY_H_
 
-#include "GlObject.h"
-#include "GlBuffer.h"
-#include <memory>
 #include <map>
+#include <memory>
+
+#include "glow/GlBuffer.h"
+#include "glow/GlObject.h"
 
 namespace glow {
 /** \brief data type of the vertex attribute. **/
@@ -122,6 +123,6 @@ void GlVertexArray::setVertexAttribute(uint32_t idx, GlBuffer<T>& buffer, int32_
   CheckGlError();
 }
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLVERTEXARRAY_H_ */

@@ -1,13 +1,12 @@
 #ifndef INCLUDE_RV_GLPROGRAM_H_
 #define INCLUDE_RV_GLPROGRAM_H_
 
-#include "GlObject.h"
-#include "GlShader.h"
-
-#include "GlUniform.h"
-#include "GlTransformFeedback.h"
-
 #include <map>
+
+#include "glow/GlObject.h"
+#include "glow/GlShader.h"
+#include "glow/GlTransformFeedback.h"
+#include "glow/GlUniform.h"
 
 namespace glow {
 
@@ -82,6 +81,6 @@ class GlProgram : public GlObject {
   void releaseTransparently(GLuint oldProgram);
 };
 
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLPROGRAM_H_ */
