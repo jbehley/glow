@@ -29,6 +29,7 @@ target_link_libraries(${TEST_BINARY}
     glow 
     glow_util
     GTest::gtest_main
+    Eigen3::Eigen
 )
 
 # gtest requires c++14 but this shit doesnt work
