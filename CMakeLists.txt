@@ -34,17 +34,17 @@ endif()
 
 ## Grep running processes for hints of gui. We only want to enable tests if they
 ## can run. OpenGL tests depend on running X server and cannot be run without it.
-# execute_process(COMMAND service --status-all
-#                 COMMAND grep -P \\+.*\(gdm3|lightdm\)
-#                 OUTPUT_VARIABLE XSERVER_FOUND)
-# message(STATUS "Found X server related running processes: \n${XSERVER_FOUND}")
+execute_process(COMMAND service --status-all
+                COMMAND grep -P \\+.*\(gdm3|lightdm\)
+                OUTPUT_VARIABLE XSERVER_FOUND)
+message(STATUS "Found X server related running processes: \n${XSERVER_FOUND}")
 
-# if(XSERVER_FOUND OR FORCE_BUILD_TEST)
-#   message(STATUS "Building tests")
-#   enable_testing()
-#   # TODO: add testcases.
-#   add_subdirectory(test)
-# endif()
+if(XSERVER_FOUND OR FORCE_BUILD_TEST)
+  message(STATUS "Building tests")
+  enable_testing()
+  # TODO: add testcases.
+  add_subdirectory(test)
+endif()
 
 
 
