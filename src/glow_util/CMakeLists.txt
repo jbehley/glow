@@ -13,6 +13,7 @@ if(X11_FOUND)
             ${X11_LIBRARIES}
             ${OPENGL_LIBRARIES} 
             ${GLEW_LIBRARIES}
+            Eigen3::Eigen
     )
 
 else()
@@ -28,6 +29,7 @@ else()
         PUBLIC
             ${OPENGL_LIBRARIES}
             ${GLEW_LIBRARIES}
+            Eigen3::Eigen
 )
 endif()
 

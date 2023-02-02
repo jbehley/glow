@@ -30,6 +30,7 @@ target_link_libraries(glow
         ${OPENGL_LIBRARIES} 
         ${GLEW_LIBRARIES} 
         ${Boost_LIBRARIES}
+        Eigen3::Eigen
 )
 
 target_compile_options(glow PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")

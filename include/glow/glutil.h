@@ -2,7 +2,7 @@
 #define INCLUDE_RV_GLUTIL_H_
 
 #include <cmath>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 #include <ostream>
 
 /** \brief some utility functions and classes. **/
@@ -11,7 +11,7 @@ namespace glow {
 
 /** \brief two-dimensional vector **/
 struct vec2 {
- public:
+public:
   vec2() : x(0.0f), y(0.0f) {}
 
   vec2(float xx, float yy) : x(xx), y(yy) {}
@@ -21,7 +21,7 @@ struct vec2 {
 
 /** \brief three-dimensional vector **/
 struct vec3 {
- public:
+public:
   vec3() : x(0.0f), y(0.0f), z(0.0f) {}
 
   vec3(float xx, float yy, float zz) : x(xx), y(yy), z(zz) {}
@@ -30,7 +30,7 @@ struct vec3 {
 
 /** \brief four-dimensional vector **/
 struct vec4 {
- public:
+public:
   vec4() : x(0.0f), y(0.0f), z(0.0f), w(0.0f) {}
 
   vec4(float xx, float yy, float zz, float ww) : x(xx), y(yy), z(zz), w(ww) {}
@@ -61,20 +61,16 @@ Eigen::Matrix4f glOrthographic(float left, float right, float bottom, float top,
 Eigen::Matrix4f glRotateAxis(float angle, float x, float y, float z);
 
 /** \brief convert an angle given in degrees to radian **/
-inline float radians(float deg) {
-  return deg * M_PI / 180.0f;
-}
+inline float radians(float deg) { return deg * M_PI / 180.0f; }
 
 /** \brief convert an angle given in radian to degrees **/
-inline float degrees(float rad) {
-  return rad * 180.0f / M_PI;
-}
+inline float degrees(float rad) { return rad * 180.0f / M_PI; }
 
 // coordinate transformations:
 
 /** \brief coordinate transform from RoSe to OpenGL coordinates. **/
 struct RoSe2GL {
- public:
+public:
   RoSe2GL() = delete;
 
   static Eigen::Matrix4f matrix;
@@ -82,7 +78,7 @@ struct RoSe2GL {
 
 /** \brief coordinate transform from RoSe to OpenGL coordinates. **/
 struct GL2RoSe {
- public:
+public:
   GL2RoSe() = delete;
 
   static Eigen::Matrix4f matrix;

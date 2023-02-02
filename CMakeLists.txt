@@ -5,6 +5,7 @@ project(glow_main)
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
+find_package(Eigen3 REQUIRED)
 find_package(X11)
 
 set(GCC_COMPILE_DEBUG_OPTIONS "-g2;-DDEBUG")

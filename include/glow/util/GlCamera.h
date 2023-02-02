@@ -1,7 +1,7 @@
 #ifndef SRC_OPENGL_GLCAMERA_H_
 #define SRC_OPENGL_GLCAMERA_H_
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 #include "glow/util/enum_utils.h"
 
@@ -9,19 +9,21 @@ namespace glow {
 
 /** \brief Camera model for specifying a view matrix using mouse events.
  *
- *  A general camera which can be modified by the provided methods. We want to keep the interface very, very general
- *  allowing the implementation of a preferred camera model.
+ *  A general camera which can be modified by the provided methods. We want to keep the interface
+ * very, very general allowing the implementation of a preferred camera model.
  *
- *  The general idea is that the camera gets screen coordinates and modifiers, like left mouse button,
- *  right mouse button, etc. With these inputs one can now call the methods mousePressed, mouseReleased and mouseMoved
- *  to update the current mouse position. Depending on the underlying implementation, this triggers some update of
- *  the view matrix. (velocity-based, i.e., regularly updated view positions, or simple position based
- *  updates, where a change in mouse position directly corresponds to a change in camera location, are possible.)
+ *  The general idea is that the camera gets screen coordinates and modifiers, like left mouse
+ * button, right mouse button, etc. With these inputs one can now call the methods mousePressed,
+ * mouseReleased and mouseMoved to update the current mouse position. Depending on the underlying
+ * implementation, this triggers some update of the view matrix. (velocity-based, i.e., regularly
+ * updated view positions, or simple position based updates, where a change in mouse position
+ * directly corresponds to a change in camera location, are possible.)
  *
- *  Each event handler returns true, if the corresponding event has been consumed and therefore might be now irrelevant
- *  for further event processing.
+ *  Each event handler returns true, if the corresponding event has been consumed and therefore
+ * might be now irrelevant for further event processing.
  *
- *  A call to matrix() returns the current view matrix, which might be updated since the last call to matrix().
+ *  A call to matrix() returns the current view matrix, which might be updated since the last call
+ * to matrix().
  *
  *
  *  \see RoSeCamera for a velocity-based navigation.
@@ -31,7 +33,7 @@ namespace glow {
  *  \author behley
  */
 class GlCamera {
- public:
+public:
   enum class MouseButton { NoButton = 0, LeftButton = 1, MiddleButton = 2, RightButton = 4 };
 
   enum class KeyboardModifier { None = 0, CtrlDown = 1, AltDown = 2, ShiftDown = 4 };
@@ -126,7 +128,8 @@ class GlCamera {
    **/
   virtual bool mouseMoved(float x, float y, MouseButton btn, KeyboardModifier modifier);
 
-  /**  \brief process mouse wheel events by delta values, i.e., how much the wheel position changed. **/
+  /**  \brief process mouse wheel events by delta values, i.e., how much the wheel position
+   * changed. **/
   virtual bool wheelEvent(float delta, KeyboardModifier modifier);
 
   /** \brief process key pressed with given KeyboardModifier
@@ -145,14 +148,14 @@ class GlCamera {
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
- protected:
+protected:
   GlCamera();  // cannot be instanced, only inherited from.
 
   Eigen::Matrix4f view_{Eigen::Matrix4f::Identity()};
 };
 
-// TODO: more elegant way than this? Allowing essentially something like if(v & ev) instead of if((v & ev) = ev)?
-// ENUM_BIT_OPERATIONS(GlCamera::MouseButton)
+// TODO: more elegant way than this? Allowing essentially something like if(v & ev) instead of if((v
+// & ev) = ev)? ENUM_BIT_OPERATIONS(GlCamera::MouseButton)
 // ENUM_BIT_OPERATIONS(GlCamera::KeyModifier)
 
 } /* namespace glow */
