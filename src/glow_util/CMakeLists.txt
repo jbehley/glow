@@ -35,3 +35,8 @@ target_include_directories(glow_util
     PUBLIC
         ${CMAKE_SOURCE_DIR}/include
 )
+
+target_compile_options(glow_util PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")
+target_compile_options(glow_util PUBLIC "$<$<CONFIG:Release>:${GCC_COMPILE_RELEASE_OPTIONS}>")
+target_compile_definitions(glow_util PUBLIC "${GL_DEFINITIONS}")
+target_compile_features(glow_util PUBLIC cxx_std_11)

@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.20)
 
 project(glow_main)
 
-# GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 20)
-
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(Boost REQUIRED COMPONENTS filesystem system)
@@ -25,21 +22,18 @@ set(GL_DEFINITIONS "-D__GL_VERSION=${OPENGL_VERSION} ${GL_DEFINITIONS}")
 message(STATUS "Using OpenGL version ${OPENGL_VERSION} with compile definitions: ${GL_DEFINITIONS}")
 
 add_subdirectory(src/glow)
-target_compile_options(glow PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")
-target_compile_options(glow PUBLIC "$<$<CONFIG:Release>:${GCC_COMPILE_RELEASE_OPTIONS}>")
-target_compile_definitions(glow PUBLIC "${GL_DEFINITIONS}")
 
 add_subdirectory(src/glow_util)
-target_compile_options(glow_util PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")
-target_compile_options(glow_util PUBLIC "$<$<CONFIG:Release>:${GCC_COMPILE_RELEASE_OPTIONS}>")
-target_compile_definitions(glow_util PUBLIC "${GL_DEFINITIONS}")
+
 
 # modify the module path so that the custom macros can be loaded downstream. Kinda hacky
-set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake")
+if(NOT PROJECT_IS_TOP_LEVEL)
+  set (CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${PROJECT_SOURCE_DIR}/cmake" PARENT_SCOPE)
+endif()
 # TODO: Install options for CMake only.
 
-# Grep running processes for hints of gui. We only want to enable tests if they
-# can run. OpenGL tests depend on running X server and cannot be run without it.
+## Grep running processes for hints of gui. We only want to enable tests if they
+## can run. OpenGL tests depend on running X server and cannot be run without it.
 # execute_process(COMMAND service --status-all
 #                 COMMAND grep -P \\+.*\(gdm3|lightdm\)
 #                 OUTPUT_VARIABLE XSERVER_FOUND)

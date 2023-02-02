@@ -31,3 +31,8 @@ target_link_libraries(glow
         ${GLEW_LIBRARIES} 
         ${Boost_LIBRARIES}
 )
+
+target_compile_options(glow PUBLIC "$<$<CONFIG:Debug>:${GCC_COMPILE_DEBUG_OPTIONS}>")
+target_compile_options(glow PUBLIC "$<$<CONFIG:Release>:${GCC_COMPILE_RELEASE_OPTIONS}>")
+target_compile_definitions(glow PUBLIC "${GL_DEFINITIONS}")
+target_compile_features(glow PUBLIC cxx_std_11)

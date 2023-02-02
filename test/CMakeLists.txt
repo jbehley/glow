@@ -31,6 +31,9 @@ target_link_libraries(${TEST_BINARY}
     GTest::gtest_main
 )
 
+# gtest requires c++14 but this shit doesnt work
+target_compile_features(${TEST_BINARY} PUBLIC cxx_std_14)
+
 include(GoogleTest)
 gtest_discover_tests(${TEST_BINARY})
 # add_test(${TEST_BINARY} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${TEST_BINARY})
