@@ -1,0 +1,23 @@
+---
+Checks: '*,
+-fuchsia-*,
+-google-*,
+-zircon-*,
+-abseil-*,
+-llvm-*,
+-llvmlibc-*,
+-altera-*,
+-modernize-use-trailing-return-type,
+-modernize-pass-by-value,
+-cppcoreguidelines-pro-type-vararg,
+-cppcoreguidelines-pro-bounds-pointer-arithmetic,
+-cppcoreguidelines-avoid-magic-numbers,
+-cppcoreguidelines-pro-type-reinterpret-cast,
+-readability-magic-numbers,
+-misc-non-private-member-variables-in-classes,
+-hicpp-vararg,
+-modernize-use-nodiscard,
+-bugprone-easily-swappable-parameters,
+'
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.'

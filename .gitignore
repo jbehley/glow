@@ -90,11 +90,11 @@ CMakeLists.txt.user
 
 # project-related files
 build
-.*
 IDEAS.md
 *~
 evaluation/result
 *.pyc
+.cache
 
 # generated folders
 bin
