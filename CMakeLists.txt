@@ -1,14 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(glow)
-
-# GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 14)
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/d9251171f5a42eaf993395e7ef127546af5814b0.zip
-)
+project(glow_main)
 
 find_package(OpenGL REQUIRED)
 find_package(GLEW REQUIRED)
@@ -46,47 +38,11 @@ endif()
 add_definitions(-D__GL_VERSION=${OPENGL_VERSION})
 message(STATUS "Using OpenGL version ${OPENGL_VERSION}.")
 
-add_library(glow
-  src/glow/glexception.cpp
-  src/glow/GlProgram.cpp
-  src/glow/GlShader.cpp
-  src/glow/GlVertexArray.cpp
-  src/glow/GlUniform.cpp
-  src/glow/glutil.cpp
-  src/glow/GlTexture.cpp
-  src/glow/GlTextureRectangle.cpp
-  src/glow/GlFramebuffer.cpp
-  src/glow/GlRenderbuffer.cpp
-  src/glow/GlTransformFeedback.cpp
-  src/glow/GlQuery.cpp
-  src/glow/GlSampler.cpp
-  src/glow/GlState.cpp
-  src/glow/GlColor.cpp
-  src/glow/GlShaderCache.cpp
-  src/glow/GlCapabilities.cpp
-  src/glow/GlTextureBuffer.cpp)
+add_subdirectory(src/glow)
 
-if(X11_FOUND)
-  add_library(glow_util
-    ${PROJECT_SOURCE_DIR}/src/glow/util/GlCamera.cpp
-    ${PROJECT_SOURCE_DIR}/src/glow/util/RoSeCamera.cpp
-    ${PROJECT_SOURCE_DIR}/src/glow/util/FpsCamera.cpp
-    ${PROJECT_SOURCE_DIR}/src/glow/util/RandomColorGenerator.cpp
-    ${PROJECT_SOURCE_DIR}/src/glow/util/X11OffscreenContext.cpp)
+add_subdirectory(src/glow_util)
 
-  target_link_libraries(glow_util ${X11_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
 
-else()
-  add_library(glow_util
-    src/glow/util/GlCamera.cpp
-    src/glow/util/RoSeCamera.cpp
-    src/glow/util/FpsCamera.cpp
-    src/glow/util/RandomColorGenerator.cpp)
-
-  target_link_libraries(glow_util ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
-endif()
-
-target_link_libraries(glow ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${Boost_LIBRARIES})
 
 ############ Testing ##################
 ## old
@@ -108,8 +64,8 @@ target_link_libraries(glow ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${Boost_LIBRARI
 #   ENDIF()
 # endif()
 ## redone
-enable_testing()
-add_subdirectory(test)
+# enable_testing()
+# add_subdirectory(test)
 # TODO: Install options for CMake only.
 
 # Grep running processes for hints of gui. We only want to enable tests if they

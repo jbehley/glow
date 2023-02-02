@@ -1,0 +1,33 @@
+add_library(glow
+    STATIC
+        glexception.cpp
+        GlProgram.cpp
+        GlShader.cpp
+        GlVertexArray.cpp
+        GlUniform.cpp
+        glutil.cpp
+        GlTexture.cpp
+        GlTextureRectangle.cpp
+        GlFramebuffer.cpp
+        GlRenderbuffer.cpp
+        GlTransformFeedback.cpp
+        GlQuery.cpp
+        GlSampler.cpp
+        GlState.cpp
+        GlColor.cpp
+        GlShaderCache.cpp
+        GlCapabilities.cpp
+        GlTextureBuffer.cpp
+)
+
+target_include_directories(glow
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/include
+)
+
+target_link_libraries(glow 
+    PUBLIC
+        ${OPENGL_LIBRARIES} 
+        ${GLEW_LIBRARIES} 
+        ${Boost_LIBRARIES}
+)

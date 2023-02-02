@@ -1,5 +1,12 @@
 # OpenGL Object Wrapper (GLOW) -- a high-level layer for OpenGL.
 
+## setup
+
+```bash
+cmake -S . -B build
+cmake --build build -j 6
+```
+
 With this side project, I want to provide a simple high-level interface to OpenGL's objects with the following goals in mind:
 
 1. simple resource management with automatic generation and deletion of OpenGL objects,

@@ -1,5 +1,3 @@
-enable_testing()
-
 set(TEST_BINARY ${PROJECT_NAME}_test)
 add_executable(${TEST_BINARY}
   main.cpp
