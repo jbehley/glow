@@ -4,8 +4,12 @@
 
 ```bash
 cmake -S . -B build
-cmake --build build -j 6
+cmake --build build
 ```
+
+TODO: tests don't build (switch to catch or doctest?)
+
+## README
 
 With this side project, I want to provide a simple high-level interface to OpenGL's objects with the following goals in mind:
 
