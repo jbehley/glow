@@ -4,7 +4,7 @@
 #include <mutex>
 #include <unordered_map>
 
-#include "glow_util/GlCamera.h"
+#include "glow/util/GlCamera.h"
 
 namespace glow {
 

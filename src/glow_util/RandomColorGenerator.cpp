@@ -1,4 +1,4 @@
-#include "glow_util/RandomColorGenerator.h"
+#include "glow/util/RandomColorGenerator.h"
 
 #include <cmath>
 

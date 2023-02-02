@@ -3,7 +3,7 @@
 
 #include <eigen3/Eigen/Dense>
 
-#include "glow_util/enum_utils.h"
+#include "glow/util/enum_utils.h"
 
 namespace glow {
 

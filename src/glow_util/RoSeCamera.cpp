@@ -1,4 +1,4 @@
-#include "glow_util/RoSeCamera.h"
+#include "glow/util/RoSeCamera.h"
 
 #include "glow/glutil.h"
 

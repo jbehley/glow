@@ -1,7 +1,7 @@
 #include <glow/GlCapabilities.h>
 #include <glow/GlState.h>
 #include <glow/glbase.h>
-#include <glow_util/X11OffscreenContext.h>
+#include <glow/util/X11OffscreenContext.h>
 #include <gtest/gtest.h>
 
 using namespace glow;

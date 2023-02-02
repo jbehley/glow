@@ -11,7 +11,7 @@
 #include <chrono>
 #include <mutex>
 
-#include "glow_util/GlCamera.h"
+#include "glow/util/GlCamera.h"
 
 namespace glow {
 
