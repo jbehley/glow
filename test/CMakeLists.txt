@@ -1,6 +1,6 @@
 # following the gtest docs pretty much
 
-###### GTest Setup ######
+# GTest Setup ######
 message("Fetching GTest.")
 include(FetchContent)
 FetchContent_Declare(
@@ -10,27 +10,17 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 # set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
-###### GTest Setup ######
+# GTest Setup ######
 
 set(TEST_BINARY ${PROJECT_NAME}_test)
-add_executable(${TEST_BINARY}
-  main.cpp
-  texture-test.cpp
-  buffer-test.cpp
-  framebuffer-test.cpp
-  color-test.cpp
-  #camera-test.cpp
+add_executable(
+  ${TEST_BINARY} main.cpp texture-test.cpp buffer-test.cpp framebuffer-test.cpp
+                 color-test.cpp # camera-test.cpp
 )
 
-target_link_libraries(${TEST_BINARY} 
-  PUBLIC 
-    ${OPENGL_LIBRARIES} 
-    ${GLEW_LIBRARIES} 
-    glow 
-    glow_util
-    GTest::gtest_main
-    Eigen3::Eigen
-)
+target_link_libraries(
+  ${TEST_BINARY} PUBLIC ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} glow glow_util
+                        GTest::gtest_main Eigen3::Eigen)
 
 # gtest requires c++14 but this shit doesnt work
 target_compile_features(${TEST_BINARY} PUBLIC cxx_std_14)
