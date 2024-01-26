@@ -1,5 +1,5 @@
 // Copyright 2017 Emanuele Palazzolo (emanuele.palazzolo@uni-bonn.de)
-#include "FpsCamera.h"
+#include "glow/util/FpsCamera.h"
 #include <glow/glutil.h>
 #include <iostream>
 

@@ -5,8 +5,8 @@
  *      Author: behley
  */
 
-#include "glow/GlFramebuffer.h"
-#include "glow/glexception.h"
+#include "GlFramebuffer.h"
+#include "glexception.h"
 
 #include <sstream>
 

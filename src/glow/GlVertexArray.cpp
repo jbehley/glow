@@ -1,5 +1,5 @@
-#include "GlVertexArray.h"
-#include "glexception.h"
+#include "glow/GlVertexArray.h"
+#include "glow/glexception.h"
 #include <cassert>
 
 namespace glow {

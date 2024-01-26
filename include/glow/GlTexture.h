@@ -87,19 +87,13 @@ class GlTexture : public GlObject {
    **/
   void copy(const GlTexture& other);
 
-  /** \brief bind the texture to the currently active texture unit.
-   *
-   *  Use glActiveTexture(...) to activate a specific texture unit before calling bind.
-   *
-   *  FIXME: bind(id) and release(id);
-   *   - id of release is needed as the same texture could be bound to multiple texture units.
-   *   - glActivateTexture(id) could be done inside the texture...
-   *   - this somehow breaks the nice thing that everything is an GlObject...
-   *  FIXME: ScopedBinder with arguments?
-   */
+  /** \brief bind the texture to the currently active texture unit. */
   void bind() override;
 
   void release() override;
+
+  void bind(uint32_t textureUnitId);
+  void release(uint32_t textureUnitId);
 
   // TODO: expose remaining texture parameters by virtue of getter/setters.
 

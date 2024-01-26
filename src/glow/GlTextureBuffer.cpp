@@ -1,4 +1,4 @@
-#include "GlTextureBuffer.h"
+#include "glow/GlTextureBuffer.h"
 
 namespace glow {
 

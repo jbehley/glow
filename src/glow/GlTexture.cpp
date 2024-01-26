@@ -1,15 +1,15 @@
-#include "GlTexture.h"
+#include "glow/GlTexture.h"
 
 #include <stdint.h>
 #include <cassert>
 #include <vector>
 
-#include "GlFramebuffer.h"
-#include "GlProgram.h"
-#include "GlSampler.h"
-#include "GlState.h"
-#include "GlVertexArray.h"
-#include "glutil.h"
+#include "glow/GlFramebuffer.h"
+#include "glow/GlProgram.h"
+#include "glow/GlSampler.h"
+#include "glow/GlState.h"
+#include "glow/GlVertexArray.h"
+#include "glow/glutil.h"
 
 #include <fstream>
 
@@ -33,6 +33,7 @@ void GlTexture::download<float>(std::vector<float>& data) const {
       break;
 
     case TextureFormat::R_INTEGER:
+    case TextureFormat::R_UNSIGNED:
       pixFormat = GL_RED_INTEGER;
       break;
 
@@ -42,6 +43,7 @@ void GlTexture::download<float>(std::vector<float>& data) const {
       break;
 
     case TextureFormat::RG_INTEGER:
+    case TextureFormat::RG_UNSIGNED:
       pixFormat = GL_RG_INTEGER;
       break;
 
@@ -51,6 +53,7 @@ void GlTexture::download<float>(std::vector<float>& data) const {
       break;
 
     case TextureFormat::RGB_INTEGER:
+    case TextureFormat::RGB_UNSIGNED:
       pixFormat = GL_RGB_INTEGER;
       break;
 
@@ -60,6 +63,7 @@ void GlTexture::download<float>(std::vector<float>& data) const {
       break;
 
     case TextureFormat::RGBA_INTEGER:
+    case TextureFormat::RGBA_UNSIGNED:
       pixFormat = GL_RGBA_INTEGER;
       break;
 
@@ -118,12 +122,19 @@ void GlTexture::download(PixelFormat pixelfmt, float* ptr) const {
 
 template <>
 void GlTexture::download(PixelFormat pixelfmt, int32_t* ptr) const {
-  std::cout << "downloading int." << std::endl;
   GLuint id = bindTransparently();
   glGetTexImage(target_, 0, static_cast<GLenum>(pixelfmt), GL_INT, reinterpret_cast<GLvoid*>(ptr));
   releaseTransparently(id);
   CheckGlError();
-  std::cout << "finished." << std::endl;
+}
+
+template <>
+void GlTexture::download(PixelFormat pixelfmt, uint32_t* ptr) const {
+  GLuint id = bindTransparently();
+  glGetTexImage(target_, 0, static_cast<GLenum>(pixelfmt), GL_UNSIGNED_INT, reinterpret_cast<GLvoid*>(ptr));
+  releaseTransparently(id);
+
+  CheckGlError();
 }
 
 GlTexture::GlTexture(uint32_t width, TextureFormat format) : width_(width), height_(0), depth_(0), format_(format) {
@@ -241,6 +252,14 @@ void GlTexture::copy(const GlTexture& other) {
     case TextureFormat::RGBA_INTEGER:
       copy_frag += "uniform isampler2D tex_other;\n";
       break;
+
+    case TextureFormat::R_UNSIGNED:
+    case TextureFormat::RG_UNSIGNED:
+    case TextureFormat::RGB_UNSIGNED:
+    case TextureFormat::RGBA_UNSIGNED:
+      copy_frag += "uniform usampler2D tex_other;\n";
+      break;
+
     default:
       copy_frag += "uniform sampler2D tex_other;\n";
   }
@@ -311,23 +330,47 @@ GlTexture GlTexture::clone() const {
 void GlTexture::bind() {
   glBindTexture(target_, id_);
   boundTexture_ = id_;
+
+  CheckGlError();
 }
 
 void GlTexture::release() {
   glBindTexture(target_, 0);
   boundTexture_ = 0;
+
+  CheckGlError();
+}
+
+void GlTexture::bind(uint32_t textureUnitId) {
+  glActiveTexture(GL_TEXTURE0 + static_cast<GLuint>(textureUnitId));
+  glBindTexture(target_, id_);
+  boundTexture_ = id_;
+
+  CheckGlError();
+}
+
+void GlTexture::release(uint32_t textureUnitId) {
+  glActiveTexture(GL_TEXTURE0 + static_cast<GLuint>(textureUnitId));
+  glBindTexture(target_, 0);
+  boundTexture_ = 0;
+
+  CheckGlError();
 }
 
 void GlTexture::setMinifyingOperation(TexMinOp minifyingOperation) {
   GLuint old_id = bindTransparently();
   glTexParameteri(target_, GL_TEXTURE_MIN_FILTER, static_cast<GLenum>(minifyingOperation));
   releaseTransparently(old_id);
+
+  CheckGlError();
 }
 
 void GlTexture::setMagnifyingOperation(TexMagOp magnifyingOperation) {
   GLuint old_id = bindTransparently();
   glTexParameteri(target_, GL_TEXTURE_MAG_FILTER, static_cast<GLenum>(magnifyingOperation));
   releaseTransparently(old_id);
+
+  CheckGlError();
 }
 
 void GlTexture::setWrapOperation(TexWrapOp wrap_s) {
@@ -341,6 +384,8 @@ void GlTexture::setWrapOperation(TexWrapOp wrap_s, TexWrapOp wrap_t) {
   glTexParameteri(target_, GL_TEXTURE_WRAP_S, static_cast<GLenum>(wrap_s));
   glTexParameteri(target_, GL_TEXTURE_WRAP_T, static_cast<GLenum>(wrap_t));
   releaseTransparently(old_id);
+
+  CheckGlError();
 }
 
 void GlTexture::setWrapOperation(TexWrapOp wrap_s, TexWrapOp wrap_t, TexWrapOp wrap_r) {
@@ -349,6 +394,8 @@ void GlTexture::setWrapOperation(TexWrapOp wrap_s, TexWrapOp wrap_t, TexWrapOp w
   glTexParameteri(target_, GL_TEXTURE_WRAP_T, static_cast<GLenum>(wrap_t));
   glTexParameteri(target_, GL_TEXTURE_WRAP_R, static_cast<GLenum>(wrap_r));
   releaseTransparently(old_id);
+
+  CheckGlError();
 }
 
 void GlTexture::setTextureSwizzle(TexSwizzle red, TexSwizzle green, TexSwizzle blue, TexSwizzle alpha) {
@@ -358,6 +405,8 @@ void GlTexture::setTextureSwizzle(TexSwizzle red, TexSwizzle green, TexSwizzle b
   GLuint old_id = bindTransparently();
   glTexParameteriv(target_, GL_TEXTURE_SWIZZLE_RGBA, swizzleMask);
   releaseTransparently(old_id);
+
+  CheckGlError();
 }
 
 bool GlTexture::save(const std::string& filename) const {
@@ -460,6 +509,8 @@ void GlTexture::resize(uint32_t width) {
   GLuint id = bindTransparently();
   allocateMemory();
   releaseTransparently(id);
+
+  CheckGlError();
 }
 
 void GlTexture::resize(uint32_t width, uint32_t height) {
@@ -472,6 +523,8 @@ void GlTexture::resize(uint32_t width, uint32_t height) {
   GLuint id = bindTransparently();
   allocateMemory();
   releaseTransparently(id);
+
+  CheckGlError();
 }
 
 void GlTexture::resize(uint32_t width, uint32_t height, uint32_t depth) {
@@ -486,6 +539,8 @@ void GlTexture::resize(uint32_t width, uint32_t height, uint32_t depth) {
   GLuint id = bindTransparently();
   allocateMemory();
   releaseTransparently(id);
+
+  CheckGlError();
 }
 
 uint32_t GlTexture::width() const {
@@ -505,18 +560,22 @@ uint32_t GlTexture::numComponents(TextureFormat fmt) {
     case TextureFormat::R:
     case TextureFormat::R_INTEGER:
     case TextureFormat::R_FLOAT:
+    case TextureFormat::R_UNSIGNED:
       return 1;
     case TextureFormat::RG:
     case TextureFormat::RG_INTEGER:
     case TextureFormat::RG_FLOAT:
+    case TextureFormat::RG_UNSIGNED:
       return 2;
     case TextureFormat::RGB:
     case TextureFormat::RGB_INTEGER:
     case TextureFormat::RGB_FLOAT:
+    case TextureFormat::RGB_UNSIGNED:
       return 3;
     case TextureFormat::RGBA:
     case TextureFormat::RGBA_INTEGER:
     case TextureFormat::RGBA_FLOAT:
+    case TextureFormat::RGBA_UNSIGNED:
       return 4;
     //    case TextureFormat::GRAY:
     //      return 1;
@@ -564,6 +623,12 @@ void GlTexture::allocateMemory() {
       pixType = GL_FLOAT;
       break;
 
+    case TextureFormat::R_UNSIGNED:
+    case TextureFormat::RG_UNSIGNED:
+    case TextureFormat::RGB_UNSIGNED:
+    case TextureFormat::RGBA_UNSIGNED:
+      pixType = GL_UNSIGNED_INT;
+      break;
     case TextureFormat::DEPTH:
       pixType = GL_UNSIGNED_BYTE;  // ??
       break;
@@ -580,6 +645,7 @@ void GlTexture::allocateMemory() {
       break;
 
     case TextureFormat::R_INTEGER:
+    case TextureFormat::R_UNSIGNED:
       pixFormat = GL_RED_INTEGER;
       break;
 
@@ -589,6 +655,7 @@ void GlTexture::allocateMemory() {
       break;
 
     case TextureFormat::RG_INTEGER:
+    case TextureFormat::RG_UNSIGNED:
       pixFormat = GL_RG_INTEGER;
       break;
 
@@ -598,6 +665,7 @@ void GlTexture::allocateMemory() {
       break;
 
     case TextureFormat::RGB_INTEGER:
+    case TextureFormat::RGB_UNSIGNED:
       pixFormat = GL_RGB_INTEGER;
       break;
 
@@ -607,6 +675,7 @@ void GlTexture::allocateMemory() {
       break;
 
     case TextureFormat::RGBA_INTEGER:
+    case TextureFormat::RGBA_UNSIGNED:
       pixFormat = GL_RGBA_INTEGER;
       break;
 

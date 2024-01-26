@@ -17,7 +17,7 @@ TEST(TextureTest, assignTest) {
   GlTexture texture(100, 50, TextureFormat::RGBA_FLOAT);
   ASSERT_NO_THROW(CheckGlError());
   std::vector<float> img(100 * 50 * 4);
-  ASSERT_EQ(static_cast<size_t>(100 * 50 * 4), img.size());
+  ASSERT_EQ(100 * 50 * 4, img.size());
   for (uint32_t i = 0; i < img.size(); ++i) {
     img[i] = 1.45f * i;
   }
@@ -110,7 +110,7 @@ TEST(TextureRectangleTest, assignTest) {
   GlTextureRectangle texture(100, 50, TextureFormat::RGBA_FLOAT);
   ASSERT_NO_THROW(CheckGlError());
   std::vector<float> img(100 * 50 * 4);
-  ASSERT_EQ(static_cast<size_t>(100 * 50 * 4), img.size());
+  ASSERT_EQ(100 * 50 * 4, img.size());
   for (uint32_t i = 0; i < img.size(); ++i) {
     img[i] = 1.45f * i;
   }

@@ -30,8 +30,8 @@ TEST(BufferTest, assignTest) {
 
   ASSERT_EQ(BufferTarget::ARRAY_BUFFER, buffer.target());
   ASSERT_EQ(BufferUsage::DYNAMIC_DRAW, buffer.usage());
-  ASSERT_EQ(static_cast<size_t>(0), buffer.size());      // empty buffer.
-  ASSERT_EQ(static_cast<size_t>(0), buffer.capacity());  // really empty buffer.
+  ASSERT_EQ(0, buffer.size());      // empty buffer.
+  ASSERT_EQ(0, buffer.capacity());  // really empty buffer.
 
   buffer.assign(values);
   ASSERT_EQ(values.size(), buffer.size());  // now not empty buffer.
@@ -63,8 +63,8 @@ TEST(BufferTest, reserveTest) {
   GlBuffer<float> buffer(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
 
   buffer.reserve(1000);
-  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
-  ASSERT_EQ(static_cast<size_t>(0), buffer.size());
+  ASSERT_EQ(1000, buffer.capacity());
+  ASSERT_EQ(0, buffer.size());
 
   ASSERT_NO_THROW(CheckGlError());
 }
@@ -73,17 +73,17 @@ TEST(BufferTest, resizeTest) {
   GlBuffer<float> buffer(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
 
   buffer.reserve(1000);
-  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
-  ASSERT_EQ(static_cast<size_t>(0), buffer.size());
+  ASSERT_EQ(1000, buffer.capacity());
+  ASSERT_EQ(0, buffer.size());
 
   buffer.resize(123);
-  ASSERT_EQ(static_cast<size_t>(123), buffer.size());
-  ASSERT_EQ(static_cast<size_t>(1000), buffer.capacity());
+  ASSERT_EQ(123, buffer.size());
+  ASSERT_EQ(1000, buffer.capacity());
 
   GlBuffer<float> buffer2(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
   buffer2.resize(145);
-  ASSERT_EQ(static_cast<size_t>(145), buffer2.size());
-  ASSERT_EQ(static_cast<size_t>(145), buffer2.capacity());
+  ASSERT_EQ(145, buffer2.size());
+  ASSERT_EQ(145, buffer2.capacity());
 
   ASSERT_NO_THROW(CheckGlError());
 }
@@ -163,13 +163,13 @@ TEST(BufferTest, eigenTest) {
   Eigen::Matrix4f t2 = -1.0f * t1;
   orig_mats.push_back(t2);
 
-//  std::cout << "sizeof(Eigen::Matrix4f) = " << sizeof(Eigen::Matrix4f) << ", "
-//            << sizeof(Eigen::Matrix4f) / sizeof(float) << std::endl;
+  //  std::cout << "sizeof(Eigen::Matrix4f) = " << sizeof(Eigen::Matrix4f) << ", "
+  //            << sizeof(Eigen::Matrix4f) / sizeof(float) << std::endl;
 
   //  for (uint32_t i = 0; i < 16; ++i) {
   //    std::cout << ((float*)&(orig_mats[0]) + i) << ",";
   //  }
-//  std::cout << std::endl;
+  //  std::cout << std::endl;
 
   mats.assign(orig_mats);
   std::vector<Eigen::Matrix4f> buffered_mats;
@@ -178,7 +178,7 @@ TEST(BufferTest, eigenTest) {
   ASSERT_EQ(orig_mats.size(), buffered_mats.size());
 
   for (uint32_t k = 0; k < buffered_mats.size(); ++k) {
-//    std::cout << buffered_mats[k] << std::endl;
+    //    std::cout << buffered_mats[k] << std::endl;
     const Eigen::Matrix4f& A = buffered_mats[k];
     const Eigen::Matrix4f& B = orig_mats[k];
     for (uint32_t i = 0; i < 4; ++i) {
@@ -186,6 +186,57 @@ TEST(BufferTest, eigenTest) {
         ASSERT_LT(std::abs(A(i, j) - B(i, j)), 0.001f);
       }
     }
+  }
+}
+
+TEST(BufferTest, copyTest) {
+
+  // TODO: add meaningful test.
+}
+
+TEST(BufferTest, getTest) {
+  uint32_t num_values = 17;
+  std::vector<float> values(num_values);
+  Random rand(1234);
+  for (uint32_t i = 0; i < values.size(); ++i) {
+    values[i] = rand.getFloat();
+  }
+
+  GlBuffer<float> buffer(BufferTarget::ARRAY_BUFFER, BufferUsage::DYNAMIC_DRAW);
+  buffer.assign(values);
+  ASSERT_EQ(values.size(), buffer.size());  // now not empty buffer.
+
+  std::vector<float> buf;
+  buffer.get(buf);
+  ASSERT_EQ(values.size(), buf.size());
+
+  for (uint32_t i = 0; i < values.size(); ++i) {
+    ASSERT_FLOAT_EQ(values[i], buf[i]);
+  }
+
+  uint32_t offset = 2;
+  buffer.get(buf, offset, buffer.size() - offset);
+  ASSERT_EQ(values.size() - offset, buf.size());
+
+  for (uint32_t i = offset; i < values.size() - offset; ++i) {
+    ASSERT_FLOAT_EQ(values[i], buf[i - offset]);
+  }
+
+  offset = 3;
+  uint32_t size = 5;
+  buffer.get(buf, offset, size);
+  ASSERT_EQ(size, buf.size());
+
+  for (uint32_t i = offset; i < size + offset; ++i) {
+    ASSERT_FLOAT_EQ(values[i], buf[i - offset]);
+  }
+
+  offset = 4;
+  buffer.get(buf, offset, 2 * buffer.size());
+  ASSERT_EQ(values.size() - offset, buf.size());
+
+  for (uint32_t i = offset; i < values.size() - offset; ++i) {
+    ASSERT_FLOAT_EQ(values[i], buf[i - offset]);
   }
 }
 }

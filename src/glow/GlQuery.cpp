@@ -1,18 +1,18 @@
-#include "GlQuery.h"
-#include "glexception.h"
+#include "glow/GlQuery.h"
+#include "glow/glexception.h"
 
 namespace glow {
 
 template <>
 void GlQuery::value<int32_t>(int32_t& value) const {
-  GLint params;
+  GLint params{0};
   glGetQueryObjectiv(id_, GL_QUERY_RESULT, &params);
   value = params;
 }
 
 template <>
 void GlQuery::value<uint32_t>(uint32_t& value) const {
-  GLuint params;
+  GLuint params{0};
   glGetQueryObjectuiv(id_, GL_QUERY_RESULT, &params);
   value = params;
 }

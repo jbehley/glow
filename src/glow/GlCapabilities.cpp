@@ -1,6 +1,8 @@
-#include "GlCapabilities.h"
+#include "glow/GlCapabilities.h"
 
 #include <sstream>
+
+#include "glow/glutil.h"
 
 namespace glow {
 
@@ -91,7 +93,6 @@ GlCapabilities::GlCapabilities() {
   initGlParameter<int>(GL_NUM_COMPRESSED_TEXTURE_FORMATS, 1);
   initGlParameter<int>(GL_TEXTURE_BUFFER_OFFSET_ALIGNMENT, 1);
 
-
   // Transformation state.
   initGlParameter<int>(GL_MAX_CLIP_DISTANCES, 1);
   initGlParameter<float>(GL_MAX_VIEWPORT_DIMS, 2);
@@ -160,7 +161,7 @@ std::string GlCapabilities::stringify_name(GLenum name) const {
     CASE(GL_NUM_PROGRAM_BINARY_FORMATS)
     CASE(GL_NUM_SHADER_BINARY_FORMATS)
     CASE(GL_POINT_SIZE_RANGE)
-    CASE(GL_LINE_WIDTH_RANGE)
+    CASE(GL_SMOOTH_LINE_WIDTH_RANGE)
     CASE(GL_DOUBLEBUFFER)
     CASE(GL_MAX_CLIP_PLANES)
     CASE(GL_MAX_VIEWPORT_DIMS)
@@ -198,4 +199,94 @@ std::string GlCapabilities::stringify_value(const std::pair<GLenum, GlState::GlS
   return sstr.str();
 }
 
-} /* namespace rv */
+template <>
+glow::vec2 GlCapabilities::get<glow::vec2>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::INT) {
+    return glow::vec2(it->second.vali[0], it->second.vali[1]);
+  } else if (it->second.type == GlState::GlStateVariable::FLOAT) {
+    return glow::vec2(it->second.valf[0], it->second.valf[1]);
+  } else if (it->second.type == GlState::GlStateVariable::BOOL) {
+    return glow::vec2(it->second.valb, 0);
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+template <>
+glow::vec3 GlCapabilities::get<glow::vec3>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::INT) {
+    return glow::vec3(it->second.vali[0], it->second.vali[1], it->second.vali[2]);
+  } else if (it->second.type == GlState::GlStateVariable::FLOAT) {
+    return glow::vec3(it->second.valf[0], it->second.valf[1], it->second.valf[2]);
+  } else if (it->second.type == GlState::GlStateVariable::BOOL) {
+    return glow::vec3(it->second.valb, 0, 0);
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+template <>
+glow::vec4 GlCapabilities::get<glow::vec4>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::INT) {
+    return glow::vec4(it->second.vali[0], it->second.vali[1], it->second.vali[2], it->second.valf[3]);
+  } else if (it->second.type == GlState::GlStateVariable::FLOAT) {
+    return glow::vec4(it->second.valf[0], it->second.valf[1], it->second.valf[2], it->second.valf[3]);
+  } else if (it->second.type == GlState::GlStateVariable::BOOL) {
+    return glow::vec4(it->second.valb, 0, 0, 0);
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+template <>
+int32_t GlCapabilities::get<int32_t>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::INT) {
+    return it->second.vali[0];
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+template <>
+float GlCapabilities::get<float>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::FLOAT) {
+    return it->second.valf[0];
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+template <>
+bool GlCapabilities::get<bool>(GLenum variable) const {
+  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+  auto it = state_.find(variable);
+
+  if (it->second.type == GlState::GlStateVariable::BOOL) {
+    return it->second.valb;
+  }
+
+  // should never reach this...
+  throw std::runtime_error("Unknown conversion.");
+}
+
+}  // namespace glow

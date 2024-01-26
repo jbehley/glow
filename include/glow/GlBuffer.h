@@ -263,6 +263,8 @@ template <class A>
 void GlBuffer<T>::assign(const std::vector<T, A>& data) {
   // the allocator is essentially irrelevant, but it allows to even use PCL's vectors or Eigen's vectors...
   assign(&data[0], data.size());
+
+  CheckGlError();
 }
 
 template <class T>

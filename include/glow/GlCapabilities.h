@@ -5,6 +5,7 @@
 
 #include "GlState.h"
 
+
 namespace glow {
 
 /** \brief Get the limits and capabilities of the associated OpenGL context.
@@ -45,23 +46,23 @@ class GlCapabilities {
   std::map<GLenum, GlState::GlStateVariable> state_;
 };
 
-template <typename T>
-T GlCapabilities::get(GLenum variable) const {
-  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
-  auto it = state_.find(variable);
+//template <typename T>
+//T GlCapabilities::get(GLenum variable) const {
+//  if (state_.find(variable) == state_.end()) throw std::runtime_error("No such variable found in GlState.");
+//  auto it = state_.find(variable);
+//
+//  if (it->second.type == GlState::GlStateVariable::INT) {
+//    return T(it->second.vali[0]);
+//  } else if (it->second.type == GlState::GlStateVariable::FLOAT) {
+//    return T(it->second.valf[0]);
+//  } else if (it->second.type == GlState::GlStateVariable::BOOL) {
+//    return T(it->second.valb);
+//  }
+//
+//  // should never reach this...
+//  throw std::runtime_error("Unknown state variable type.");
+//}
 
-  if (it->second.type == GlState::GlStateVariable::INT) {
-    return T(it->second.vali[0]);
-  } else if (it->second.type == GlState::GlStateVariable::FLOAT) {
-    return T(it->second.valf[0]);
-  } else if (it->second.type == GlState::GlStateVariable::BOOL) {
-    return T(it->second.valb);
-  }
-
-  // should never reach this...
-  throw std::runtime_error("Unkown state variable type.");
-}
-
-} /* namespace rv */
+}  // namespace glow
 
 #endif /* INCLUDE_RV_GLCAPABILITIES_H_ */

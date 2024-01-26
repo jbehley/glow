@@ -1,4 +1,4 @@
-#include "RandomColorGenerator.h"
+#include "glow/util/RandomColorGenerator.h"
 #include <cmath>
 
 namespace glow {

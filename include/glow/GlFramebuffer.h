@@ -2,9 +2,9 @@
 #define INCLUDE_RV_GLFRAMEBUFFER_H_
 
 #include <map>
+#include "GlRenderbuffer.h"
 #include "GlTexture.h"
 #include "GlTextureRectangle.h"
-#include "GlRenderbuffer.h"
 
 namespace glow {
 
@@ -43,6 +43,9 @@ class GlFramebuffer : public GlObject {
   GlFramebuffer(uint32_t width, uint32_t height, FramebufferTarget target = FramebufferTarget::BOTH);
 
   ~GlFramebuffer();
+
+  /** \brief clear the framebuffer. **/
+  void clear(GLbitfield clear_options = GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   /** \brief bind framebuffer to current context.
    *

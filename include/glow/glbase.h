@@ -5,11 +5,11 @@
  * some generic definitions needed by most OpenGL related functions.
  */
 
-#include <iostream>
 #include <GL/glew.h>
+#include <iostream>
 
-#include "glexception.h"
 #include <cassert>
+#include "glexception.h"
 
 // If no version is specified, fallback to OpenGL version 3.30
 #ifndef __GL_VERSION
@@ -62,6 +62,12 @@ inline void inititializeGLEW() {
     // consume here any OpenGL error and reset to NO_GL_ERROR:
     glGetError();
   }
+
+#ifdef NDEBUG
+  std::cout << "[info] Using glow in RELEASE mode." << std::endl;
+#else
+  std::cout << "[info] Using glow in DEBUG mode." << std::endl;
+#endif
 }
 
 #define PRINT_VALUE(CMD) std::cout << #CMD << " = " << CMD << std::endl;

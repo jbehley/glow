@@ -1,6 +1,6 @@
-#include "GlUniform.h"
-#include "glexception.h"
-#include "glutil.h"
+#include "glow/GlUniform.h"
+#include "glow/glexception.h"
+#include "glow/glutil.h"
 
 namespace glow {
 

@@ -56,7 +56,7 @@ void GlQuery::value(T& value) const {
   GLint params;
   glGetQueryObjectiv(id_, GL_QUERY_RESULT, &params);
 
-  return T(params);
+  value = T(params);
 }
 
 } /* namespace rv */

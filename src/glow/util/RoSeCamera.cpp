@@ -1,4 +1,4 @@
-#include "RoSeCamera.h"
+#include "glow/util/RoSeCamera.h"
 #include "glow/glutil.h"
 
 namespace glow {

@@ -1,4 +1,4 @@
-#include "GlState.h"
+#include "glow/GlState.h"
 
 #include <sstream>
 #include <cassert>

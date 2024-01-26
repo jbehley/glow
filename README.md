@@ -32,8 +32,8 @@ However, this framework is heavily inspired by these frameworks:
  - globjects (https://github.com/cginternals/globjects): Pretty complete high-level API for OpenGL. Also wrapping all objects into complete C++-classes.
 
 ## Requirements
- - GLEW
- - Eigen 3
+ - GLEW (`libglew-dev`)
+ - Eigen 3 (`libeigen-dev`)
 
 ## Features
  - *Shader compilation*: I usally have my shader files in separate text files and it's somehow annoying to move these stuff around and make it available relative to the executable. For this purpose, I build a solution based on CMAKE, which simply generates a statically initialized "storage" of shader strings, which can accessed by a call to a static method of `GlShaderCache`. It's somehow nice as it only needs cmake to generate the source, which can be then included in the build and therefore compiled into a library or executable.

@@ -1,4 +1,4 @@
-#include "GlSampler.h"
+#include "glow/GlSampler.h"
 
 namespace glow {
 

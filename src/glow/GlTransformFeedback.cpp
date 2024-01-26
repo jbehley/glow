@@ -1,5 +1,5 @@
-#include "GlTransformFeedback.h"
-#include "glexception.h"
+#include "glow/GlTransformFeedback.h"
+#include "glow/glexception.h"
 
 namespace glow {
 

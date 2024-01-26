@@ -1,11 +1,11 @@
-#include "GlShader.h"
+#include "glow/GlShader.h"
 
 #include <boost/tokenizer.hpp>
 #include <fstream>
 #include <sstream>
 #include <vector>
 
-#include "GlShaderCache.h"
+#include "glow/GlShaderCache.h"
 
 namespace glow {
 

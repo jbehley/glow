@@ -79,16 +79,13 @@ class GlTextureRectangle : public GlObject {
   /** \brief copy data from another texture. **/
   void copy(const GlTexture& other);
 
-  /** \brief bind the texture to the currently active texture unit.
-   *
-   *  Use glActiveTexture(...) to activate a specific texture unit before calling bind.
-   *
-   *  FIXME: bind(id) and release(id)
-   *  FIXME: ScopedBinder with arguments?
-   */
+  /** \brief bind the texture to the currently active texture unit. */
   void bind() override;
 
   void release() override;
+
+  void bind(uint32_t textureUnitId);
+  void release(uint32_t textureUnitId);
 
   // TODO: expose remaining texture parameters by virtue of getter/setters.
 

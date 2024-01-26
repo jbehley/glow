@@ -1,4 +1,4 @@
-#include "GlRenderbuffer.h"
+#include "glow/GlRenderbuffer.h"
 
 namespace glow {
 

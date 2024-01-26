@@ -1,7 +1,7 @@
 #include <cmath>
 
-#include "glow/GlColor.h"
-#include "glow/GlUniform.h"
+#include "GlColor.h"
+#include "GlUniform.h"
 
 namespace glow {
 

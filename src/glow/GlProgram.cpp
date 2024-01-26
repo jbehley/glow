@@ -1,8 +1,8 @@
 #include <cassert>
 #include <vector>
 
-#include "GlProgram.h"
-#include "GlTransformFeedback.h"
+#include "glow/GlProgram.h"
+#include "glow/GlTransformFeedback.h"
 
 namespace glow {
 
@@ -92,17 +92,23 @@ void GlProgram::link() {
   for (auto feedback : feedbacks_) *(feedback.linked_) = true;
 
   feedbacks_.clear();  // not needed anymore.
+
+  CheckGlError();
 }
 
 void GlProgram::bind() {
   assert(linked_ && "GlProgram should be linked with link() before usage!");
   glUseProgram(id_);
   boundProgram_ = id_;
+
+  CheckGlError();
 }
 
 void GlProgram::release() {
   glUseProgram(0);
   boundProgram_ = 0;
+
+  CheckGlError();
 }
 
 void GlProgram::setUniform(const GlAbstractUniform& uniform) {
@@ -110,6 +116,8 @@ void GlProgram::setUniform(const GlAbstractUniform& uniform) {
   GLuint id = bindTransparently();
   uniform.bind(id_);
   releaseTransparently(id);
+
+  CheckGlError();
 }
 
 GLuint GlProgram::bindTransparently() {
